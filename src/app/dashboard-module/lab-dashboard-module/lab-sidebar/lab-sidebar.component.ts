@@ -158,24 +158,24 @@ export class LabSidebarComponent implements OnInit {
           }
         ]
       },
-      {
-        displayName: 'Medical Lab Scientist',
-        showDivider: true,
-        activeLinkOptions: true,
-        rolesAllowedToView: [
-          RoleTypeConstant.ADMIN,
-          RoleTypeConstant.SUPER_ADMIN,
-          RoleTypeConstant.MEDICAL_LAB_SCIENTIST,
-          RoleTypeConstant.PATHOLOGIST],
-        children: [
-          {
-            displayName: 'Create Result',
-            showDivider: true,
-            activeLinkOptions: true,
-            route: '/dashboard/lab/medical-lab-scientist'
-          }
-        ]
-      },
+      // {
+      //   displayName: 'Medical Lab Scientist',
+      //   showDivider: true,
+      //   activeLinkOptions: true,
+      //   rolesAllowedToView: [
+      //     RoleTypeConstant.ADMIN,
+      //     RoleTypeConstant.SUPER_ADMIN,
+      //     RoleTypeConstant.MEDICAL_LAB_SCIENTIST,
+      //     RoleTypeConstant.PATHOLOGIST],
+      //   children: [
+      //     {
+      //       displayName: 'Create Result',
+      //       showDivider: true,
+      //       activeLinkOptions: true,
+      //       route: '/dashboard/lab/medical-lab-scientist'
+      //     }
+      //   ]
+      // },
     ];
   }
 
