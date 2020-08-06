@@ -1,0 +1,36 @@
+
+
+@media screen and (max-width: 800px) {
+  .multiple-mat-card-padding {
+    padding-bottom: 20px;
+  }
+}
+
+
+@media screen and (min-width: 801px) {
+  .multiple-mat-card-padding {
+    padding: 20px;
+  }
+}
+
+.mat-card-no-padding {
+  padding: 0;
+}
+
+.mini-div-patient {
+  width: 50%;
+  display: inline-block;
+  background-color: #0d47a1;
+  color: #ffffff;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 3px;
+}
+
+.mini-div-institution {
+  width: 50%;
+  display: inline-block;
+  background-color: #b30c11;
+  color: #ffffff;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 3px;
+}

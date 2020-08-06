@@ -1,0 +1,328 @@
+.mat-form-field {
+  display: inline;
+}
+
+.custom-button-login {
+  width: 100% !important;
+  min-width: unset !important;
+}
+
+.div-padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.custom-body {
+  min-height: 100vh;
+  background-color: #007bff;
+}
+
+:host ::ng-deep .password-strength div.mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 800px) {
+
+  .padding-mobile {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .btn-sign {
+    width: 100% !important;
+    color: #fff;
+    font-size: 18px;
+    background-color: #47b329;
+    border-color: #4dcc2b;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .btn-sign:active, .btn-sign:hover {
+    font-size: 18px;
+    color: #fff;
+    background-color: #36971e;
+    border-color: #36971e;
+  }
+
+  .btn-sign-spinner {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    color: #fff;
+    font-size: 18px;
+    background-color: #47b329;
+    border-color: #4dcc2b;
+  }
+
+  .btn-sign-spinner:active, .btn-sign-spinner:hover {
+    font-size: 18px;
+    color: #fff;
+    background-color: #36971e;
+    border-color: #36971e;
+  }
+
+  .btn-back {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    color: #000c29;
+    font-size: 18px;
+    background-color: #FFFF33;
+    border-color: #FFFF33;
+  }
+
+  .btn-back:active, .btn-back:hover {
+    font-size: 18px;
+    color: #000000;
+    background-color: #eeee00;
+    border-color: #eeee00;
+  }
+}
+
+@media screen and (min-width: 801px) {
+
+  .btn-back {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    color: #000c29;
+    font-size: 18px;
+    background-color: #FFFF33;
+    border-color: #FFFF33;
+  }
+
+
+  .btn-back:active, .btn-back:hover {
+    font-size: 18px;
+    color: #000000;
+    background-color: #eeee00;
+    border-color: #eeee00;
+  }
+
+  .btn-sign {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    color: #fff;
+    font-size: 18px;
+    background-color: #47b329;
+    border-color: #4dcc2b;
+  }
+
+  .btn-sign:active, .btn-sign:hover {
+    font-size: 18px;
+    color: #fff;
+    background-color: #36971e;
+    border-color: #36971e;
+  }
+
+
+  .btn-sign-spinner {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    color: #fff;
+    font-size: 18px;
+    background-color: #47b329;
+    border-color: #4dcc2b;
+  }
+
+
+  .btn-sign-spinner:active, .btn-sign-spinner:hover {
+    font-size: 18px;
+    color: #fff;
+    background-color: #36971e;
+    border-color: #36971e;
+  }
+
+
+  .btn-back {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    color: #fff;
+    font-size: 18px;
+    background-color: #FFFF33;
+    border-color: #FFFF33;
+  }
+
+
+  .btn-back:active, .btn-back:hover {
+    font-size: 18px;
+    color: #fff;
+    background-color: #eeee00;
+    border-color: #eeee00;
+  }
+}
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*flex-direction: column;*/
+  /*width: 100%;*/
+  /*vertical-align: middle;*/
+  min-height: 100vh;
+}
+
+.text-align-center {
+  padding: 10px;
+  text-align: center;
+
+}
+
+.align-middle {
+  display: table;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+.custom-form-control {
+  min-height: 50px;
+  border-radius: 0;
+}
+
+
+.custom-button {
+  min-height: 50px;
+  width: 100%;
+}
+
+.div-padding-10 {
+  padding: 10px;
+}
+
+
+.dont-have-account {
+  margin: 0 auto;
+  text-align: center;
+  color: #ffffff;
+}
+
+.dont-have-account a {
+  color: #ffffff;
+}
+
+
+/* Checkbox */
+
+.checkbox-effect {
+  cursor: pointer;
+}
+
+.checkbox-effect input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-effect:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-effect input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-effect .checkmark:after {
+  left: 7px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.remember-me {
+  padding-left: 6px;
+}
+
+.text-align-center b a {
+  text-decoration-line: underline;
+}
+
+.forgot-password a {
+  color: #2196F3;
+  text-decoration-line: none !important;
+}
+
+.set-my-font {
+  font-family: raleway, serif;
+}
+
+
+.logo-img {
+  width: 50px;
+}
+
+.div-text-logo-img {
+  padding-left: 6px;
+  display: inline-block;
+}
+
+.text-logo-img {
+  width: 70px;
+}
+
+.navbar-toggler {
+  width: 47px;
+  height: 34px;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0 !important;
+}
+
+.alt-links {
+  text-decoration: none;
+  padding: 5px;
+  color: #ffffff;
+}
+
+
+.alt-links a {
+  text-decoration: none;
+}
+
+
+.btn-sign-spinner.mat-raised-button, .btn-sign-spinner.mat-flat-button {
+  line-height: 10px !important;
+}
+
+
+/*div, p, a , input{*/
+/*font-family: 'Raleway' , "Helvetica Neue", sans-serif;*/
+/*font-weight: 400;*/
+/*}*/

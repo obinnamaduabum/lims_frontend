@@ -3,6 +3,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "experimentalDecorators": true,
     "types": []
   },
   "files": [
@@ -10,6 +11,7 @@
     "src/polyfills.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "."
   ]
 }

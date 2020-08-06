@@ -1,0 +1,38 @@
+<style>
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .country-info {
+    float: left;
+    font-family: 'Raleway', "Helvetica Neue", sans-serif;
+    font-weight: 400 !important;
+    text-transform: uppercase;
+  }
+
+  .mat-form-field {
+    display: inline;
+  }
+
+</style>
+
+<div>
+  <mat-form-field class="example-full-width">
+    <input type="text" autocomplete="off" (input)="findCountries($event.target.value)" matInput placeholder="Enter country name">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <mat-dialog-content>
+    <ul style="">
+      <li *ngFor="let country of listPhoneNumberCodes" style="padding-top: 2px; padding-bottom: 5px">
+        <button  [mat-dialog-close]="country" mat-raised-button style="clear: both; cursor: pointer; width: 100%;">
+          <span class="country-info">
+            <img style="width: 30px; height: 20px; vertical-align: middle; border-radius: 5px" [src]="getLocalCountryImageUrl(country.alpha2)" alt="phone_number">
+            {{country.name | truncate:[20]}} +{{country.internationalPhoneNumber}}
+          </span>
+        </button>
+      </li>
+    </ul>
+  </mat-dialog-content>
+</div>

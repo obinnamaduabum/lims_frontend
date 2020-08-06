@@ -1,0 +1,84 @@
+.registration-successful-top-div {
+  padding: 10px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.mat-form-field {
+  display: inline;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+}
+
+li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+.btn-sign {
+  width: 100% !important;
+  color: #fff;
+  font-size: 18px;
+  background-color: #47b329;
+  border-color: #4dcc2b;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.btn-sign:active, .btn-sign:hover {
+  font-size: 18px;
+  color: #fff;
+  background-color: #36971e;
+  border-color: #36971e;
+}
+
+
+
+
+.back-sign {
+  width: 100% !important;
+  color: black;
+  font-size: 18px;
+  background-color: yellow;
+  border-color: transparent;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.back-sign:active, .back-sign:hover {
+  font-size: 18px;
+  color: black;
+  background-color: yellow;
+  border-color: transparent;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  display: none !important;
+}
+
+
+.input-placeholder {
+  line-height: normal;
+  display: inline-block;
+  margin: 10px;
+  min-width: 25px;
+  min-height: 60px;
+  max-width: 40px;
+  font-size: 25px;
+  border-bottom: #2e2e2e solid 2px;
+}
+
+.input-placeholder:focus, .input-placeholder:active {
+  border-bottom: #206ac3 solid 2px;
+}
+
+
+input[type=text], input[type=number] {
+  padding-top: 0;
+  padding-left: 0 !important;
+  /*line-height: 1em;*/
+}

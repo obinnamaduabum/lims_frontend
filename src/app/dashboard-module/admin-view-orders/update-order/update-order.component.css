@@ -1,0 +1,253 @@
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+
+.view-btn {
+  color: #fff;
+  font-size: 14px;
+  background-color: #007bff;
+  border-color: transparent;
+}
+
+.view-btn:active, .view-btn:hover {
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff;
+  border-color: transparent;
+}
+
+
+.download-btn {
+  color: #fff;
+  font-size: 14px;
+  background-color: #4dcc2b;
+  border-color: transparent;
+}
+
+.download-btn:active, .download-btn:hover {
+  font-size: 14px;
+  color: #fff;
+  background-color: #4dcc2b;
+  border-color: transparent;
+}
+
+.custom-padding {
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+
+/*quantity*/
+
+.quantity {
+  display: inline-block; }
+
+.quantity .input-text.qty {
+  width: 35px;
+  height: 39px;
+  padding: 0 5px;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid #efefef;
+}
+
+.quantity.buttons_added {
+  text-align: left;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: top; }
+
+.quantity.buttons_added input {
+  display: inline-block;
+  margin: 0;
+  vertical-align: top;
+  box-shadow: none;
+}
+
+.quantity.buttons_added .minus,
+.quantity.buttons_added .plus {
+  padding: 7px 10px 8px;
+  height: 41px;
+  background-color: #ffffff;
+  border: 1px solid #efefef;
+  cursor:pointer;}
+
+.quantity.buttons_added .minus {
+  border-right: 0; }
+
+.quantity.buttons_added .plus {
+  border-left: 0; }
+
+.quantity.buttons_added .minus:hover,
+.quantity.buttons_added .plus:hover {
+  background: #eeeeee; }
+
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0; }
+
+.quantity.buttons_added .minus:focus,
+.quantity.buttons_added .plus:focus {
+  outline: none; }
+
+.grand-total {
+  text-align: right;
+  padding: 20px;
+  font-size: 24px
+}
+
+
+
+.check-out-btn {
+  color: #fff;
+  font-size: 15px;
+  background-color: #47b329;
+  border-color: #4dcc2b;
+}
+
+.check-out-btn:active, .check-out-btn:hover {
+  font-size: 15px;
+  color: #fff;
+  background-color: #36971e;
+  border-color: #36971e;
+}
+
+
+.sample-collected-btn {
+  color: #fff;
+  font-size: 15px;
+  background-color: #ae000d;
+  border-color: #ae000d;
+}
+
+.sample-collected-btn:active, .sample-collected-btn:hover {
+  font-size: 15px;
+  color: #fff;
+  background-color: #ae000d;
+  border-color: #ae000d;
+}
+
+
+
+.view-btn {
+  color: #fff;
+  font-size: 15px;
+  background-color: #174fae;
+  border-color: #174fae;
+}
+
+.view-btn:active, .view-btn:hover {
+  font-size: 15px;
+  color: #fff;
+  background-color: #174fae;
+  border-color: #174fae;
+}
+
+
+.mat-form-field {
+  display: inline;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0 !important;
+}
+
+
+.custom-body {
+  min-height: 60vh;
+}
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*flex-direction: column;*/
+  /*width: 100%;*/
+  vertical-align: middle;
+  min-height: 100vh;
+}

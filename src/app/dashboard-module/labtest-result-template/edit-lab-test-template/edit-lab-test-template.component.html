@@ -1,0 +1,51 @@
+<div class="container">
+  <mat-card style="padding-bottom: 20px;">
+
+    <h4 style="text-align: center; text-transform: uppercase;">Edit lab test template</h4>
+
+    <div [formGroup]="formGroup">
+
+      <mat-form-field class="alignment" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input class="input-placeholder"
+               matInput placeholder="Enter Title"
+               formControlName="title"
+               type="text"
+               required
+               [errorStateMatcher]="matcher">
+
+        <mat-error *ngIf="formGroup.controls['title'].invalid && (formGroup.controls['title'].dirty || formGroup.controls['title'].touched)">
+
+          <span *ngIf="formGroup.controls['title'].errors.required">
+          Title is required
+          </span>
+
+        </mat-error>
+
+      </mat-form-field>
+
+      <!--<mat-form-field class="alignment" appearance="outline">-->
+      <!--<mat-label>Email</mat-label>-->
+      <json-editor [options]="options" [data]="myJsonData"></json-editor>
+
+      <div style="color: red" *ngIf="formGroup.controls['data'].invalid && (formGroup.controls['data'].dirty || formGroup.controls['data'].touched)">
+
+          <span *ngIf="formGroup.controls['data'].errors.required">
+          Json data is required
+          </span>
+
+      </div>
+
+
+      <div style="padding-top: 20px">
+        <!--<button mat-button (click)="beautifyJson()">Beautify</button>-->
+
+        <button mat-button (click)="save()">Submit</button>
+      </div>
+
+
+    </div>
+
+    <!--<pre [innerHTML]="obj | beautifyJson"></pre>-->
+  </mat-card>
+</div>

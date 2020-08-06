@@ -24,6 +24,8 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -90,7 +92,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jsoneditor/dist/jsoneditor.min.js"
+            ]
           }
         },
         "lint": {
@@ -119,6 +123,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "lims"
 }

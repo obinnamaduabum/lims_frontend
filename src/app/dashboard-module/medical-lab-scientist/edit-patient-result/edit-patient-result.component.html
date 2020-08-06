@@ -1,0 +1,83 @@
+<div class="container">
+  <mat-card style="margin-bottom: 40px;">
+
+    <h4 style="text-align: center">EDIT PATIENT RESULT</h4>
+
+    <div *ngIf="formDataJson.length > 0">
+      <form class="dynamic-form" [formGroup]="dynamicForm" (submit)="onSubmit($event)">
+        <div *ngFor="let field of formDataJson;">
+
+
+          <div *ngIf="field?.materialInputType === 'mat-input'">
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>{{field.label}}</mat-label>
+              <input class="input-placeholder"
+                     matInput placeholder="Enter {{field.label}}"
+                     [formControlName]="field.label"
+                     [required]="field?.required"
+                     [type]="field?.type"
+                     [errorStateMatcher]="matcher">
+
+              <div matSuffix>Range: {{field.min}}-{{field.max}}{{field.unit}}</div>
+
+              <mat-error *ngIf="dynamicForm.controls[field.label].invalid &&
+            (dynamicForm.controls[field.label].dirty || dynamicForm.controls[field.label].touched)">
+
+                <div *ngIf="field.required">
+                <span *ngIf="dynamicForm.controls[field.label].errors.required">
+                  {{field.label}} required
+                </span>
+                </div>
+
+
+                <div *ngIf="field.inputType === 'number'">
+                <span *ngIf="dynamicForm.controls[field.label].errors.notNumber">
+                  {{field.label}} not number
+                </span>
+                </div>
+
+                <div *ngIf="field.inputType === 'string'">
+                <span *ngIf="dynamicForm.controls[field.label].errors.notString">
+                  {{field.label}} not string
+                </span>
+                </div>
+
+                <div *ngIf="field.inputType === 'decimal'">
+                <span *ngIf="dynamicForm.controls[field.label].errors.notDecimal">
+                  {{field.label}} not decimal
+                </span>
+                </div>
+
+                <div *ngIf="field.min">
+                <span *ngIf="dynamicForm.controls[field.label].errors.minLengthExceeded">
+                  {{field.label}} minimum exceeded
+                </span>
+                </div>
+
+                <div *ngIf="field.max">
+                <span *ngIf="dynamicForm.controls[field.label].errors.maxLengthExceeded">
+                  {{field.label}} maximum exceeded
+                </span>
+                </div>
+
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="center">
+          <button mat-raised-button type="submit">Submit</button>
+        </div>
+
+      </form>
+    </div>
+
+    <div *ngIf="formDataJson.length <= 0">
+      <div class="center">
+        <mat-spinner style="margin: 0 auto" [diameter]="30"></mat-spinner>
+      </div>
+    </div>
+
+  </mat-card>
+</div>

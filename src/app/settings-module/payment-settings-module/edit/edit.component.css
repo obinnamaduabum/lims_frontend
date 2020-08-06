@@ -1,0 +1,19 @@
+.mat-form-field {
+  display: inline;
+}
+
+
+.btn-green-submit {
+  padding: 5px 15px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 15px;
+  background-color: #47b329;
+  border-color: transparent;
+}
+
+.btn-green-submit:active, .btn-green-submit:hover {
+  color: #fff;
+  background-color: #36971e;
+  border-color:transparent;
+}

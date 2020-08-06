@@ -1,0 +1,86 @@
+.mat-list-item {
+  color: #ffffff;
+
+  .routeIcon {
+    margin-right: 40px;
+  }
+}
+
+.closed {
+  .vertical {
+    transition: all 0.5s ease-in-out;
+    transform: rotate(-90deg);
+  }
+  .horizontal {
+    transition: all 0.5s ease-in-out;
+    transform: rotate(-90deg);
+    opacity: 1;
+  }
+}
+
+.opened {
+  opacity: 1;
+  .vertical {
+    transition: all 0.5s ease-in-out;
+    transform: rotate(90deg);
+  }
+  .horizontal {
+    transition: all 0.5s ease-in-out;
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+}
+
+.circle-plus {
+  height: 4em;
+  width: 4em;
+  font-size: 1em;
+  opacity: .7;
+}
+
+.circle-plus .circle .horizontal {
+  position: absolute;
+  background-color: #ffffff;
+  width: 18px;
+  height: 2px;
+  //left: 50%;
+  margin-left: -8px;
+  top: 50%;
+  margin-top: -2.5px;
+}
+
+.circle-plus .circle .vertical {
+  position: absolute;
+  background-color: #ffffff;
+  width: 2px;
+  height: 18px;
+  //left: 50%;
+  //margin-left: -4px;
+  top: 50%;
+  margin-top: -10px;
+}
+
+
+.my-icon {
+  display: inline-block;
+  padding-left: 10px !important;
+}
+
+
+.parent-a-sidebar {
+  background-color: #4b4b4b;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.parent-a-sidebar:hover, .parent-a-sidebar:focus, .parent-a-sidebar:active  {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+
+.children-a-sidebar {
+  font-size: 12px !important;
+  //left: 10px;
+  //border-left: 2px solid #ffffff;
+}

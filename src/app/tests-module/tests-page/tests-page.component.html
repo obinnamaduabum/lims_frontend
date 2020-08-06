@@ -1,0 +1,149 @@
+<div>
+  <div style="background-color: #f3f3f3;padding-top: 20px; padding-bottom: 20px;" [formGroup]="searchForm">
+    <div class="container" style="padding-top: 20px">
+
+      <mat-card>
+        <mat-form-field class="alignment" appearance="outline">
+          <input class="input-placeholder"
+                 matInput placeholder="Search"
+                 formControlName="testName"
+                 [matAutocomplete]="auto"
+                 type="text">
+
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let test of filteredTestCategories" [value]="test.name">
+              <span>{{test.name}}</span> |
+              <small>Category: {{test.categoryName}}</small>
+            </mat-option>
+          </mat-autocomplete>
+
+        </mat-form-field>
+
+        <div style="display: inline; padding-bottom: 22px">
+          <div style=" display: inline; text-align: right">
+            <div *ngIf="!showAdvanced">
+              <a class="add-cursor" style="color: #007bff" (click)="toggleCategoryShow()">Show Advanced</a>
+            </div>
+
+            <div *ngIf="showAdvanced">
+              <a class="add-cursor" style="color: #007bff" (click)="toggleCategoryShow()">Show Less</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="text-align-center">
+              <button class="search" mat-flat-button (click)="searchLabCategoriesAndTests()">
+                <mat-icon style="display: inline-block">search</mat-icon>
+                search
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </mat-card>
+      <div [@slideInOut]="animationState" style="padding-top: 20px">
+        <mat-card>
+          <div>
+            <mat-form-field>
+              <mat-label>Select category</mat-label>
+              <mat-select formControlName="categoryName">
+                <mat-option [value]="">
+                  All
+                </mat-option>
+                <mat-option *ngFor="let testCategory of testCategories" [value]="testCategory.name">
+                  {{testCategory.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color: #f3f3f3; padding-top: 20px; padding-bottom: 20px; min-height: 40vh">
+
+    <div class="container">
+
+
+      <div *ngIf="loading">
+        <lottie-animation-view
+          [options]="lottieConfig"
+          [width]="350"
+          [height]="200"
+          (animCreated)="handleAnimation($event)">
+        </lottie-animation-view>
+      </div>
+
+
+      <div *ngIf="!loading" class="col s12 m12 l12">
+
+        <div *ngIf="allTests.length > 0">
+
+
+          <div class="row">
+
+            <!--{{adminSettingsModel.currencyType}}-->
+            <div class="col s12 m4 l3 multiple-mat-card-padding" *ngFor="let info of allTests">
+              <mat-card class="">
+
+                <h4>Category: {{info.categoryName}}</h4>
+
+                <p>Test name: {{info.name}}</p>
+
+
+                <div *ngIf="adminSettingsModel.currencyType === 'NGN'">
+                  <p>price: <span>&#x20A6;</span>{{info.price | number:'1.2-2'}}</p>
+                </div>
+
+                <div *ngIf="adminSettingsModel.currencyType === 'USD'">
+                  <p>price: <span>&#36;</span>{{info.price | number:'1.2-2'}}</p>
+                </div>
+
+                <div *ngIf="adminSettingsModel.currencyType === 'EUR'">
+                  <p>price: <span>&#163;</span>{{info.price | number:'1.2-2'}}</p>
+                </div>
+
+                <!--<p>Price: {{info.code}}</p>-->
+
+
+                <div class="center">
+                  <button mat-raised-button class="add-to-cart" (click)="AddItemToCart(info)">
+                    <mat-icon class="add-to-cart-btn">shopping_cart</mat-icon>
+                    <span style="word-wrap:break-word;"> Add to cart</span>
+                  </button>
+                </div>
+
+              </mat-card>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div *ngIf="allTests.length <= 0">
+          <mat-card>
+            <p>No record found</p>
+          </mat-card>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="allTests.length > 0">
+  <mat-paginator [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="switchPage($event)">
+  </mat-paginator>
+
+</div>
+
+

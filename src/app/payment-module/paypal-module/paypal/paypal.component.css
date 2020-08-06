@@ -1,0 +1,23 @@
+/* Media query for mobile viewport */
+@media screen and (max-width: 400px) {
+
+}
+
+.paypal-button {
+  width: 100%;
+}
+
+.paypal-button div.zoid-outlet {
+  width: 100%;
+}
+/*#paypal-button-container {*/
+  /*width: 100%;*/
+/*}*/
+
+/*#paypal-button-container.zoid-outlet {*/
+  /*width: 100%;*/
+/*}*/
+
+/*#zoid-paypal-button-6b323d9487 > .zoid-outlet {*/
+  /*width: 100%;*/
+/*}*/

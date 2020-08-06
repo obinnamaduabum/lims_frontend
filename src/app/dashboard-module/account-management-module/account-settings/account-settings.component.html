@@ -1,0 +1,38 @@
+<div style="padding-top: 30px; padding-bottom: 30px">
+  <div class="container">
+    <mat-card>
+      <h3 style="text-align: center">Account Settings</h3>
+
+
+
+      <div class="col m12 s12 l12" [formGroup]="accountSettingsFormGroup">
+
+        <div class="row">
+
+          <div class="col m6 s12 l6">
+            <mat-slide-toggle formControlName="emailEnabled">
+              <span *ngIf="accountSettingsFormGroup.get('emailEnabled').value === true">Email Enabled</span>
+              <span *ngIf="accountSettingsFormGroup.get('emailEnabled').value === false || null || undefined">Email Disabled</span>
+            </mat-slide-toggle>
+          </div>
+
+          <div class="col m6 s12 l6">
+            <div class="col m6 s12 l6">
+              <mat-slide-toggle formControlName="smsEnabled">
+                <span *ngIf="accountSettingsFormGroup.get('smsEnabled').value === true">Sms Enabled</span>
+                <span *ngIf="accountSettingsFormGroup.get('smsEnabled').value === false || null || undefined">Sms Disabled</span>
+              </mat-slide-toggle>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+    </mat-card>
+  </div>
+
+</div>

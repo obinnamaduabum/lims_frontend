@@ -1,0 +1,30 @@
+.upload {
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff;
+  font-size: 15px;
+  background-color: #47b329;
+  border-color: transparent;
+}
+
+.upload:active, .upload:hover {
+  font-size: 15px;
+  color: #fff;
+  background-color: #36971e;
+  border-color: transparent;
+}
+
+.errors-page {
+  border-radius: 5px;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+  background-color: red;
+  color: #ffffff;
+}
+
+.mat-card-padding {
+  padding: 15px;
+}

@@ -1,0 +1,17 @@
+.custom-body {
+  min-height: 60vh;
+}
+
+
+@media screen and (max-width: 800px) {
+  .custom-body {
+    margin-top: 70px;
+  }
+}
+
+
+@media screen and (min-width: 801px) {
+  .custom-body {
+    margin-top: 80px;
+  }
+}

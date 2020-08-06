@@ -1,0 +1,22 @@
+.mat-card-padding {
+  padding: 10px;
+}
+
+.circle-div {
+  border-radius: 50%;
+  /*behavior: url(PIE.htc); !* remove if you don't care about IE8 *!*/
+  width: 20px;
+  height: 20px;
+}
+
+.red {
+  background: #ff2516;
+}
+
+.green {
+  background: #38ff3b;
+}
+
+.display-inline {
+  display: inline-block;
+}

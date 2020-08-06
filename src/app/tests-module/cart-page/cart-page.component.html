@@ -1,0 +1,100 @@
+<div class="container">
+    <div *ngIf="itemsInCart.length <= 0">
+
+      <mat-card>
+        <p>No items in cart</p>
+      </mat-card>
+
+    </div>
+    <div *ngIf="itemsInCart.length > 0" class="custom-padding">
+      <table>
+        <caption>My Cart</caption>
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col"></th>
+          <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of itemsInCart">
+          <td data-label="Name">{{item.name}}</td>
+          <td data-label="Quantity">
+            <div class="quantity buttons_added">
+              <input type="button" value="-" class="minus" (click)="reduceQuantity(item)">
+              <input type="number" step="1" min="1" max="" name="quantity"
+                     [value]="item.quantity" title="Qty" class="input-text qty text"
+                     size="4" pattern="" inputmode="">
+              <input type="button"
+                     value="+"
+                     (click)="increaseQuantity(item)"
+                     class="plus">
+            </div>
+          </td>
+          <td data-label="Price">
+
+            <div>
+            <span *ngIf="item?.currencyCode === 'NGN'">
+              <span>Price: <span>&#x20A6;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+
+              <span *ngIf="item?.currencyCode === 'USD'">
+              <span>Price: <span>&#36;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+
+              <span *ngIf="item?.currencyCode === 'EUR'">
+              <span>Price: <span>&#163;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+            </div>
+
+
+          </td>
+          <td data-label="">
+            <button class="remove-btn" (click)="removeItem(item)" mat-flat-button>Remove</button>
+          </td>
+          <td data-label="Total">
+            <div>
+            <span *ngIf="item?.currencyCode === 'NGN'">
+              <span>Price: <span>&#x20A6;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+              <span *ngIf="item?.currencyCode === 'USD'">
+              <span>Price: <span>&#36;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+              <span *ngIf="item?.currencyCode === 'EUR'">
+              <span>Price: <span>&#163;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+            </div>
+
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="grand-total">Grand total:
+
+        <span *ngIf="adminSettingsModel?.currencyType === 'NGN'">
+        <span>&#x20A6;</span>
+      </span>
+
+        <span *ngIf="adminSettingsModel?.currencyType === 'USD'">
+          <span>&#36;</span>
+      </span>
+
+        <span *ngIf="adminSettingsModel?.currencyType === 'EUR'">
+        <span>&#163;</span>
+      </span>
+
+        {{grandTotal | number:'1.2-2'}}
+
+      </div>
+
+      <div style="text-align: center;">
+        <button mat-flat-button class="check-out-btn" (click)="checkOut()">Check Out</button>
+      </div>
+    </div>
+</div>

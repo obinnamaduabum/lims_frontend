@@ -1,0 +1,199 @@
+<div class="isPrinting">
+  <div class="container">
+    <div *ngIf="!loading" style="padding-top: 40px; padding-bottom: 40px">
+      <mat-card>
+
+        <h3 style="text-align: center">ORDER DETAILS FOR PATIENTS</h3>
+        <div style="text-align: right"><span><b>Order ID:</b></span> {{orderInfo?.code}}</div>
+        <mat-divider></mat-divider>
+
+        <div style="text-align: center"><h3>Patient Details</h3></div>
+        <div class="row">
+          <div class="col m6 s12 l4">
+            <span><b>Firstname:</b></span> {{portalUerModel.firstName}}
+          </div>
+          <div class="col m6 s12 l4">
+            <span><b>Lastname:</b></span> {{portalUerModel.lastName}}
+          </div>
+
+          <div class="col m6 s12 l4">
+            <span><b>Phone Number:</b></span> {{portalUerModel.phoneNumber}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m6 s12 l4">
+            <span><b>User ID:</b></span> {{portalUerModel.code}}
+          </div>
+        </div>
+
+
+        <div style="text-align: center"><h3>Order Details</h3></div>
+
+        <div class="row">
+          <div class="col m6 s12 l4">
+            <span><b>Date Created:</b></span> {{ orderInfo.dateCreated | date:"medium" }}
+          </div>
+          <div class="col m6 s12 l4">
+            <span><b>Date Updated:</b></span> {{ orderInfo.dateUpdated | date:"medium" }}
+          </div>
+
+          <div class="col m6 s12 l4">
+            <span><b>Cash Collected:</b></span>
+            <span *ngIf="orderInfo?.cashCollected === true">Yes</span>
+            <span *ngIf="orderInfo?.cashCollected === false">No</span>
+            <mat-slide-toggle (click)="cashCollectedToggleChange()"
+                              (toggleChange)="updateCashCollectedStatus()"
+                              [disabled]="orderInfo?.cashCollected"
+                              [checked]="orderInfo?.cashCollected"></mat-slide-toggle>
+          </div>
+        </div>
+        <!--<div class="row">-->
+        <!--<div class="col m6 s12 l4">-->
+        <!--<span><b>Sample Collected:</b></span>-->
+        <!--<span *ngIf="orderInfo?.cashCollected === true">Yes</span>-->
+        <!--<span *ngIf="orderInfo?.cashCollected === false">No</span>-->
+        <!--</div>-->
+
+        <!--<div class="col m6 s12 l4">-->
+        <!--<span><b>Date sample was collected:</b></span>-->
+        <!--<span *ngIf="orderInfo?.cashCollected === true">Yes</span>-->
+        <!--<span *ngIf="orderInfo?.cashCollected === false">No</span>-->
+        <!--</div>-->
+
+        <!--</div>-->
+
+        <div style="text-align: center"><h3 style="margin-bottom: 0px">Tests Ordered</h3></div>
+
+        <div style="padding-top: 10px"></div>
+        <table>
+          <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+            <th scope="col">Sample Collected Status</th>
+            <th scope="col">Sample Collected By</th>
+            <th scope="col">Date Sample was Collected</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of items, let i = index">
+            <td data-label="Name">{{item.name}}</td>
+            <td data-label="Quantity">
+              <div class="quantity buttons_added">
+                <span>{{item.quantity}}</span>
+              </div>
+            </td>
+            <td data-label="Price">
+
+              <div>
+            <span *ngIf="orderInfo?.currencyType === 'NGN'">
+              <span><span>&#x20A6;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+
+                <span *ngIf="orderInfo?.currencyType === 'USD'">
+              <span><span>&#36;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+
+                <span *ngIf="orderInfo?.currencyType === 'EUR'">
+              <span><span>&#163;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+              </div>
+
+
+            </td>
+            <td data-label="Total">
+              <div>
+            <span *ngIf="orderInfo?.currencyType === 'NGN'">
+              <span><span>&#x20A6;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+                <span *ngIf="orderInfo?.currencyType === 'USD'">
+              <span><span>&#36;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+                <span *ngIf="orderInfo?.currencyType === 'EUR'">
+              <span><span>&#163;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+              </div>
+            </td>
+            <td data-label="Sample Collected Status">
+              <button class="sample-collected-btn" mat-flat-button
+                      (click)="updateSampleCollectionStatus(item.uniqueId, item.labTestId)"
+                      *ngIf="item?.sampleCollectionPojo === null">No
+              </button>
+              <button class="sample-collected-btn" mat-flat-button
+                      (click)="updateSampleCollectionStatus(item.uniqueId, item.labTestId)"
+                      *ngIf="item?.sampleCollectionPojo?.sampleCollected === SampleTypeConstant.SAMPLE_NOT_COLLECTED">No
+              </button>
+              <button mat-flat-button class="check-out-btn"
+                      (click)="updateSampleCollectionStatus(item.uniqueId, item.labTestId)"
+                      *ngIf="item?.sampleCollectionPojo?.sampleCollected === SampleTypeConstant.SAMPLE_COLLECTED">Yes
+              </button>
+            </td>
+            <td data-label="Sample Collected By">
+              <button (click)="openDialog(item?.sampleCollectionPojo?.collectedBy)" mat-flat-button class="view-btn">
+                View
+              </button>
+            </td>
+            <td data-label="Date Sample was Collected">
+<!--              <span *ngIf="item?.sampleCollectionPojo === null">null</span>-->
+              <span *ngIf="item?.sampleCollectionPojo?.dateCreated === null">N/A</span>
+              <span
+                *ngIf="item?.sampleCollectionPojo?.dateCreated">{{item?.sampleCollectionPojo?.dateCreated | date:"medium"}}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+
+        <div style="padding: 10px; text-align: right">
+          <span style="display: inline-block; font-size: 25px">Grand Total:</span>
+          <div style="display: inline-block; font-size: 25px">
+            <span *ngIf="orderInfo?.currencyType === 'NGN'">
+              <span><span>&#x20A6;</span>{{orderInfo?.price | number:'1.2-2'}}</span>
+            </span>
+
+            <span *ngIf="orderInfo?.currencyType === 'USD'">
+              <span><span>&#36;</span>{{orderInfo?.price | number:'1.2-2'}}</span>
+            </span>
+
+            <span *ngIf="orderInfo?.currencyType === 'EUR'">
+              <span><span>&#163;</span>{{orderInfo?.price | number:'1.2-2'}}</span>
+            </span>
+          </div>
+        </div>
+
+
+        <div style="text-align: center">
+          <div style="padding: 20px">
+            <button mat-flat-button class="download-btn" (click)="downloadReceipt()">Download Receipt</button>
+          </div>
+
+          <div style="padding: 20px">
+            <button *ngIf="!printingStatus" mat-flat-button class="download-btn" (click)="printInvoice()">Print
+              Invoice
+            </button>
+            <button *ngIf="printingStatus" mat-flat-button class="download-btn">
+              <mat-spinner class="white-mat-spinner" diameter="30" style="margin: 5px"></mat-spinner>
+            </button>
+          </div>
+        </div>
+
+      </mat-card>
+
+
+      <!--<mat-card style="margin-top: 20px; margin-bottom: 20px">-->
+
+      <!--</mat-card>-->
+    </div>
+    <div *ngIf="loading">
+      <div class="center">
+        <mat-spinner style="margin: 0 auto" [diameter]="30"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet name="print"></router-outlet>

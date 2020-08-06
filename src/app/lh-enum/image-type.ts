@@ -1,0 +1,6 @@
+export enum UserImageTypeConstant {
+
+  PROFILE_IMAGE = 'PROFILE_IMAGE',
+  BACKGROUND_IMAGE = 'BACKGROUND_IMAGE'
+
+}

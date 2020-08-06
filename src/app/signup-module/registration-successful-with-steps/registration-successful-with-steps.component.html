@@ -1,0 +1,193 @@
+<div class="registration-successful-top-div">
+
+  <mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="selectionChange($event)">
+    <mat-step label="Step 1" [completed]="stepOne" [editable]="stepOneHeader">
+
+      <div class="text-align-center">
+
+        <h3> How would you like to verify your account ?</h3>
+        <ul>
+          <li *ngIf="data.email">
+
+            <div *ngIf="!sendingEmailVerificationCode">
+              <button class="btn-sign" mat-flat-button mat-button (click)="sendVerificationEmail()"> via Email</button>
+            </div>
+
+            <div *ngIf="sendingEmailVerificationCode">
+              <button class="btn-sign" mat-flat-button>
+                <span style="display: inline-block">via Email</span>
+                <span style="display: inline-block; padding-left: 10px">
+                  <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                </span>
+              </button>
+            </div>
+
+          </li>
+          <li *ngIf="data.email && data.phoneNumber">
+            <span> OR </span>
+          </li>
+
+          <li *ngIf="data.phoneNumber">
+            <div *ngIf="!sendingVerificationCode">
+              <button class="btn-sign" mat-flat-button mat-button (click)="sendVerificationCode()"> via Phone Number
+              </button>
+            </div>
+
+            <div *ngIf="sendingVerificationCode">
+
+              <button class="btn-sign" mat-flat-button>
+                <span style="display: inline-block">via Phone Number</span>
+                <span style="display: inline-block; padding-left: 10px">
+                  <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                </span>
+              </button>
+            </div>
+
+          </li>
+        </ul>
+      </div>
+
+
+    </mat-step>
+    <mat-step label="Step 2" [completed]="stepTwo" [editable]="stepTwoHeader">
+      <div class="container">
+        <div [formGroup]="verificationCodeFormGroup">
+
+
+          <h4>Please enter the 4-digit verification code we sent via SMS:</h4>
+
+          <!--1800-->
+          <div class="text-align-center">
+            <div *ngIf="!timeOutExpired">
+                <span>Remaining
+                  <countdown [config]="config"
+                             (start)="onStart()"
+                             (finished)="onFinished()"
+                             (notify)="onNotify($event)" #counter>$!m!:$!s!</countdown>
+                </span>
+            </div>
+
+            <div *ngIf="timeOutExpired">
+              <span style="color: red">Timeout expired</span>
+            </div>
+          </div>
+          <!--<span>(we want to make sure it's you before we contact our movers)</span>-->
+
+          <!--<mat-label>Email</mat-label>-->
+          <div class="">
+            <div>
+
+
+              <mat-form-field class="alignment" appearance="outline">
+                <!--<mat-label>Verification Code</mat-label>-->
+
+                <input id="user-password"
+                       type="text"
+                       matInput
+                       [errorStateMatcher]="matcher"
+                       placeholder="Enter verification code"
+                       formControlName="code" required>
+
+
+                <mat-error *ngIf="verificationCodeFormGroup.controls['code'].invalid &&
+            (verificationCodeFormGroup.controls['code'].dirty || verificationCodeFormGroup.controls['code'].touched)"
+                           style="color: red">
+
+                        <span *ngIf="verificationCodeFormGroup.controls['code'].errors.required">
+                          Verification code is required
+                        </span>
+
+                  <span *ngIf="!verificationCodeFormGroup.controls['code'].errors.required &&
+               verificationCodeFormGroup.controls['code'].errors.pattern">
+                          Verification is invalid
+                        </span>
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <div>
+
+            <div style="padding: 5px" *ngIf="!timeOutExpired">
+              <button class="btn-sign" (click)="verifyPhoneNumberVerificationCode()" mat-button
+                      mat-flat-button>Verify
+              </button>
+            </div>
+
+
+            <div style="padding: 5px">
+              <button class="back-sign" (click)="goBack()" mat-button mat-flat-button>Back</button>
+            </div>
+
+            <div style="padding: 10px" class="text-align-center">
+              <span>Didn't receive the code?</span>
+            </div>
+
+            <div style="padding: 10px" class="text-align-center">
+              <a (click)="sendPhoneNumberVerificationCode()">Send code again</a>
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </mat-step>
+    <mat-step label="Step 3">
+
+
+      <div class="registration-successful-top-div">
+
+
+        <div *ngIf="emailUsed">
+          <lottie-animation-view
+            [options]="lottieConfig"
+            [width]="100"
+            [height]="200"
+            (animCreated)="handleAnimation($event)">
+          </lottie-animation-view>
+        </div>
+
+
+        <div *ngIf="phoneNumberUsed">
+          <lottie-animation-view
+            [options]="lottieConfigTwo"
+            [width]="100"
+            [height]="200"
+            (animCreated)="handleAnimationTwo($event)">
+          </lottie-animation-view>
+        </div>
+
+      </div>
+
+      <div class="registration-successful-bottom-div">
+        <div class="center">
+          <p>
+            <!--Verification email has been sent to {{data.email}}-->
+          </p>
+        </div>
+
+
+        <div class="center">
+
+          <div *ngIf="data.twoFactorImageBase64" align="center" style="text-align: center">
+            <img style="width: 300px; height: 300px" [src]="data?.twoFactorImageBase64" alt="two-factor-code">
+
+            <span>Generated Two-factor code</span>
+          </div>
+
+
+          <button class="btn-sign" mat-flat-button (click)="closeDialogueAndRedirect('/login')">
+            Redirect
+          </button>
+        </div>
+
+
+      </div>
+
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

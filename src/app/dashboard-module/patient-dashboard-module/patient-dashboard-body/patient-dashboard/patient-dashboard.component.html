@@ -1,0 +1,65 @@
+<div style="padding-top: 10px">
+  <div *ngIf="!loading">
+    <div *ngIf="dashboardInfo?.doesUserHaveEmail">
+      <div class="something-is-required" *ngIf="showEmailRequiredError">
+        <span style="float: right; cursor: pointer"><mat-icon (click)="toggleEmailRequiredError()">close</mat-icon></span>
+        <h5>No email address associated to this account</h5>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading">
+    <mat-spinner [diameter]="40"></mat-spinner>
+  </div>
+
+</div>
+
+<div style="padding-top: 10px"></div>
+<div class="col s12 m12 l12">
+
+  <div class="row">
+
+    <div class="col s12 m4 l4 multiple-mat-card-padding">
+
+      <mat-card>
+
+        <h4 style="text-transform: uppercase;">Number Of Lab tests Ordered: </h4>
+
+        <div *ngIf="!loading">
+          <span style="font-size: 50px;">{{dashboardInfo?.numberOfTestsOrdered}}</span>
+        </div>
+
+        <div *ngIf="loading">
+          <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
+
+      </mat-card>
+
+    </div>
+
+    <!--<div class="col s12 m4 l4 multiple-mat-card-padding">-->
+
+      <!--<mat-card>-->
+        <!--<h4>Number of </h4>-->
+        <!--<span style="font-size: 50px">50</span>-->
+      <!--</mat-card>-->
+
+    <!--</div>-->
+
+    <!--<div class="col s12 m4 l4 multiple-mat-card-padding">-->
+
+      <!--<mat-card>-->
+
+        <!--<h4>Number of Tests</h4>-->
+        <!--<span style="font-size: 50px">40</span>-->
+
+      <!--</mat-card>-->
+
+    <!--</div>-->
+
+  </div>
+
+  <div>
+
+  </div>
+</div>

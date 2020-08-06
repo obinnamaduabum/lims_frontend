@@ -1,0 +1,28 @@
+.custom-body {
+  min-height: 60vh;
+  /*background-color: #f3f3f3;*/
+}
+
+
+@media screen and (max-width: 800px) {
+  .custom-body {
+    margin-top: 70px;
+  }
+}
+
+
+@media screen and (min-width: 801px) {
+  .custom-body {
+    margin-top: 80px;
+  }
+}
+
+
+.page-content {
+  min-height: 100vh;
+}
+
+
+.login-page-resize {
+  min-height: 60vh;
+}

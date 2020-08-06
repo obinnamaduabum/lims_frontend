@@ -1,0 +1,25 @@
+<div class="entire-page">
+  <mat-sidenav-container [hasBackdrop] (backdropClick)="closeSidebar()">
+
+    <mat-sidenav #patientLeftSidenav
+                 [fixedInViewport]="true"
+                 position="start"
+                 class="patient-sidebar"
+                 [mode]="mode">
+      <app-patient-sidebar></app-patient-sidebar>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="page-content" [ngClass]="(isSidebarOpen) ? 'root-div':''">
+        <app-patient-header></app-patient-header>
+
+        <div class="custom-body">
+          <div class="login-page-resize">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+        <app-footer></app-footer>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,1 +1,314 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "assets/css/materialize.css";
+@import "assets/css/animate.css";
+@import '~jsoneditor/dist/jsoneditor.css';
+/*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans');*/
+/*@import url('http://fonts.googleapis.com/css?family=Kavoon');*/
+
+
+/*@font-face {*/
+/*  font-family: 'Spartan';*/
+/*  src: url('/assets/fonts/spartan/Spartan-Regular.ttf') format("truetype");*/
+/*  font-weight:300;*/
+/*}*/
+
+
+@font-face {
+  font-family: 'Spartan';
+  src: url('/assets/fonts/mulish/Mulish-Regular.ttf') format("truetype");
+  font-weight:300;
+}
+
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Spartan', "Helvetica Neue", sans-serif; }
+
+
+h1, h2 , h3, h4, h5, h6, p , a{
+  font-family: 'Spartan', "Helvetica Neue", sans-serif;
+}
+
+.btn-login {
+  border-radius: 5px;
+  padding: 1px;
+  width: 100%;
+  color: #fff;
+  font-size: 12px;
+  background-color: #47b329;
+  border-color: #4dcc2b;
+}
+
+.button-green {
+  background-color: #47b329;
+  color: #fff;
+}
+
+
+.button-float-left {
+  float: left;
+}
+
+
+.button-float-right {
+  float: right;
+}
+
+
+.parent {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.child {
+  display: flex;
+  align-items: center;
+}
+
+
+.center-on-page {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+
+.phone-number-international {
+  vertical-align: top;
+}
+
+.phone-number-international-img {
+  vertical-align: top;
+  width: 20px;
+  height: 10px;
+  padding-top: 4px;
+}
+
+.custom-dropdown-arrow {
+  vertical-align: top;
+  width: 18px;
+  height: 10px;
+  padding-top: 5px;
+}
+
+
+/*css preloader*/
+
+.full-screen-div {
+  width: 100%;
+  height: auto;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.center-div {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #000000;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 58px;
+    height: 58px;
+    opacity: 0;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+
+.white-mat-spinner svg circle {
+  stroke: #ffffff !important;
+}
+
+.black-mat-spinner svg circle {
+  stroke: #202020 !important;
+}
+
+
+@media screen and (max-width: 800px) {
+
+
+  .mat-horizontal-content-container {
+    overflow: hidden;
+    padding: 0 !important;
+  }
+
+  .row {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+  }
+}
+
+
+.phone-number-international-font {
+  vertical-align: super;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+}
+
+.phone-number-international {
+  vertical-align: top;
+}
+
+.phone-number-international-img {
+  vertical-align: top;
+  width: 20px;
+  height: 10px;
+  padding-top: 4px;
+}
+
+.custom-dropdown-arrow {
+  vertical-align: top;
+  width: 18px;
+  height: 10px;
+  padding-top: 5px;
+}
+
+.registration-successful .mat-dialog-container {
+  color: #ffffff;
+  padding: 0;
+}
+
+
+
+
+@media screen and (max-width: 800px) {
+
+  .padding-mobile {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .btn-sign {
+    padding: 12px;
+    width: 100% !important;
+    color: #fff;
+    font-size: 18px;
+    background-color: #47b329;
+    border-color: #4dcc2b;
+  }
+
+  .btn-sign:active, .btn-sign:hover {
+    font-size: 18px;
+    color: #fff;
+    background-color: #36971e;
+    border-color: #36971e;
+  }
+
+
+  .mat-menu-panel.patient-popup-nav {
+    margin-top: 25px;
+  }
+
+
+  .display-only-on-mobile {
+    display: inline-block;
+  }
+
+}
+
+@media screen and (min-width: 801px) {
+
+  .display-only-on-mobile {
+    display: none;
+  }
+
+  .btn-login {
+    border-radius: 5px;
+    padding: 12px;
+    width: 100%;
+    color: #fff;
+    font-size: 18px;
+    background-color: #47b329;
+    border-color: #4dcc2b;
+  }
+
+  .btn-login:active, .btn-login:hover {
+    font-size: 18px;
+    color: #fff;
+    background-color: #36971e;
+    border-color: #36971e;
+  }
+
+
+  .logo-zoom {
+    transition: transform .2s; /* Animation */
+  }
+
+  .logo-zoom:hover {
+    transform: scale(1.4); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+
+
+  .mat-menu-panel.patient-popup-nav {
+    margin-top: 30px;
+  }
+}
+
+
+.my-website-sidebar.mat-drawer.mat-sidenav {
+  background-color: rgb(0, 123, 255);
+  width: 200px !important;
+  max-width: 200px !important;
+  color: #ffffff;
+}
+
+.patient-sidebar.mat-drawer.mat-sidenav {
+  background-color: #0d47a1;
+  color: #ffffff;
+  width: 220px !important;
+  max-width: 220px !important;
+}
+
+
+.lab-sidebar.mat-drawer.mat-sidenav {
+  background-color: #636363;
+  color: #000000;
+  width: 220px !important;
+  max-width: 220px !important;
+}

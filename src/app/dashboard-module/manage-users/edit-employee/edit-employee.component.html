@@ -1,0 +1,263 @@
+<div class="container" style="margin-bottom: 20px">
+  <div [formGroup]="createEmployeeForm">
+    <div class="mat-card">
+      <div style="padding: 10px">
+        <div class="col s12 m12 l12">
+
+          <h3 style="text-align: center">EDIT EMPLOYEE</h3>
+
+          <div class="row">
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Firstname</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Firstname"
+                       formControlName="firstName"
+                       type="text"
+                       [errorStateMatcher]="matcher">
+
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Lastname</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Lastname"
+                       formControlName="lastName"
+                       type="text"
+                       [errorStateMatcher]="matcher">
+
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                    <span matPrefix class="phone-number-international">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(createEmployeeForm.controls['selectedPhoneNumber'].value.alpha2)"
+                           alt="country">
+                      <span
+                        class="phone-number-international-font">+{{createEmployeeForm.controls['selectedPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+                <mat-label>Phone Number</mat-label>
+                <input formControlName="phoneNumber"
+                       matInput
+                       type="tel" [errorStateMatcher]="matcher"
+                       placeholder="e.g 08067189966">
+                <mat-error *ngIf="createEmployeeForm.controls['phoneNumber'].invalid &&
+            (createEmployeeForm.controls['phoneNumber'].dirty || createEmployeeForm.controls['phoneNumber'].touched)">
+
+                <span
+                  *ngIf="!createEmployeeForm.controls['phoneNumber'].errors.required && createEmployeeForm.controls['phoneNumber'].errors.phoneNumberInvalid">
+               Phone number is invalid
+            </span>
+
+                  <span
+                    *ngIf="!createEmployeeForm.controls['phoneNumber'].errors.required && createEmployeeForm.controls['phoneNumber'].errors.phoneNumberAlreadyTaken">
+               Phone number is already taken
+            </span>
+
+                </mat-error>
+
+
+              </mat-form-field>
+
+            </div>
+
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                    <span matPrefix class="phone-number-international">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(createEmployeeForm.controls['selectedOtherPhoneNumber'].value.alpha2)"
+                           alt="country">
+                      <span
+                        class="phone-number-international-font">+{{createEmployeeForm.controls['selectedOtherPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+                <mat-label>Other Phone Number</mat-label>
+                <input formControlName="otherPhoneNumber"
+                       matInput
+                       type="tel" [errorStateMatcher]="matcher"
+                       placeholder="e.g 08067189966">
+
+
+                <mat-error *ngIf="createEmployeeForm.controls['otherPhoneNumber'].invalid &&
+            (createEmployeeForm.controls['otherPhoneNumber'].dirty || createEmployeeForm.controls['otherPhoneNumber'].touched)">
+
+                <span
+                  *ngIf="!createEmployeeForm.controls['otherPhoneNumber'].errors.required && createEmployeeForm.controls['otherPhoneNumber'].errors.phoneNumberInvalid">
+               Other phone number is invalid
+            </span>
+
+                </mat-error>
+
+
+              </mat-form-field>
+
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Email"
+                       formControlName="email"
+                       type="text"
+                       [errorStateMatcher]="matcher">
+
+                <div *ngIf="createEmployeeForm.status === 'PENDING'" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+
+                <mat-error *ngIf="createEmployeeForm.controls['email'].invalid &&
+            (createEmployeeForm.controls['email'].dirty || createEmployeeForm.controls['email'].touched)">
+
+                <span *ngIf="createEmployeeForm.controls['email'].errors.required">
+                  Email is required
+               </span>
+
+                  <span *ngIf="createEmployeeForm.controls['email'].errors.pattern">
+                 Email is invalid
+              </span>
+
+                  <span *ngIf="createEmployeeForm.controls['email'].errors.emailAlreadyTaken">
+                Email already taken
+              </span>
+
+                </mat-error>
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Role</mat-label>
+                <mat-select [formControlName]="'roles'" multiple>
+                  <mat-option *ngFor="let role of listOfRoles" [value]="role.type">{{role.name}}</mat-option>
+                </mat-select>
+
+
+                <div *ngIf="fetchingRoles" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+
+
+
+                <mat-error *ngIf="createEmployeeForm.controls['roles'].invalid &&
+            (createEmployeeForm.controls['roles'].dirty || createEmployeeForm.controls['roles'].touched)">
+
+                <span *ngIf="createEmployeeForm.controls['roles'].errors.required">
+                  Role is required
+               </span>
+
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+          </div>
+
+
+          <div class="row">
+
+
+            <div class="col s12 m6 l6">
+              <mat-label>Account deactivated :</mat-label>
+              <mat-slide-toggle
+                [formControlName]="'accountBlockedByAdmin'">
+              </mat-slide-toggle>
+            </div>
+          </div>
+
+
+          <div class="center">
+            <div>
+              <div *ngIf="createEmployeeForm.status !== 'PENDING'"
+                   class="padding-mobile">
+                <button class="btn-sign" (click)="registerEmployee()" mat-flat-button>
+                  Submit
+                </button>
+              </div>
+
+              <div *ngIf="createEmployeeForm.status === 'PENDING'">
+                <button class="btn-sign-spinner" mat-flat-button>
+                    <span style="padding: 5px">
+                      <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                    </span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mat-card" style="margin-top: 20px; margin-bottom: 20px">
+      <div style="padding: 10px">
+        <div class="col s12 m12 l12">
+
+          <h4 style="text-align: center">SUBSCRIPTIONS</h4>
+
+          <div class="row">
+
+            <div class="col s12 m12 l12">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                  <mat-chip
+                    *ngFor="let subscription of userSelectedTopics"
+                    [selectable]="selectable"
+                    [removable]="removable"
+                    (removed)="remove(subscription.topicName, subscription.id)">
+                    {{subscription.topicName}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input
+                    placeholder="Topics..."
+                    #fruitInput
+                    [formControl]="fruitCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let topic of filteredTopics | async" [value]="topic.name">
+                    {{topic.name}}
+                  </mat-option>
+                </mat-autocomplete>
+
+
+
+                <div *ngIf="subscribingToTopic" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

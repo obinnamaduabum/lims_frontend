@@ -1,0 +1,294 @@
+<div class="container" style="padding-top: 40px">
+  <div *ngIf="itemsInCart.length <= 0">
+
+    <mat-card>
+      <p>No items in cart</p>
+    </mat-card>
+
+  </div>
+  <div *ngIf="itemsInCart.length > 0" class="custom-padding">
+    <table>
+      <caption>My Cart</caption>
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col">Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of itemsInCart">
+        <td data-label="Name">{{item.name}}</td>
+        <td data-label="Quantity">
+          <div class="quantity buttons_added">
+            <!--<input type="button" value="-" class="minus" (click)="reduceQuantity(item)">-->
+            <input type="number" step="1" min="1" max="" name="quantity"
+                   [value]="item.quantity" title="Qty" class="input-text qty text"
+                   size="4" pattern="" inputmode="" readonly>
+            <!--<input type="button"-->
+                   <!--value="+"-->
+                   <!--(click)="increaseQuantity(item)"-->
+                   <!--class="plus">-->
+          </div>
+        </td>
+        <td data-label="Price">
+
+          <div>
+            <span *ngIf="item?.currencyCode === 'NGN'">
+              <span>Price: <span>&#x20A6;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+
+            <span *ngIf="item?.currencyCode === 'USD'">
+              <span>Price: <span>&#36;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+
+            <span *ngIf="item?.currencyCode === 'EUR'">
+              <span>Price: <span>&#163;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+          </div>
+
+
+        </td>
+        <td data-label="">
+          <button class="remove-btn" (click)="removeItem(item)" mat-flat-button>
+            <span style="word-break: break-all">Remove Item</span>
+          </button>
+        </td>
+        <td data-label="">
+          <button class="patient-info-btn" (click)="editPatientInfo(item)" mat-flat-button>
+            <span style="word-break: break-all">View Patient Info</span>
+          </button>
+          <span class="patient-info-span" *ngIf="item?.isInValid">Patient information is missing</span>
+        </td>
+        <td data-label="Total">
+          <div>
+            <span *ngIf="item?.currencyCode === 'NGN'">
+              <span>Price: <span>&#x20A6;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+            <span *ngIf="item?.currencyCode === 'USD'">
+              <span>Price: <span>&#36;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+            <span *ngIf="item?.currencyCode === 'EUR'">
+              <span>Price: <span>&#163;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+          </div>
+
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="grand-total">Grand total:
+
+      <span *ngIf="adminSettingsModel?.currencyType === 'NGN'">
+        <span>&#x20A6;</span>
+      </span>
+
+      <span *ngIf="adminSettingsModel?.currencyType === 'USD'">
+          <span>&#36;</span>
+      </span>
+
+      <span *ngIf="adminSettingsModel?.currencyType === 'EUR'">
+        <span>&#163;</span>
+      </span>
+
+      {{grandTotal | number:'1.2-2'}}
+
+    </div>
+
+
+    <div [formGroup]="doctorFormGroup">
+
+      <h3 style="text-align: center">REFERRED BY</h3>
+      <div class="col l12 m12 12">
+
+        <div class="row">
+
+          <div class="col l6 m6 s12">
+
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>Full name</mat-label>
+              <!--<span matPrefix> <span style="padding:5px; vertical-align: super">Dr.</span></span>-->
+              <input class="input-placeholder"
+                     formControlName="fullName"
+                     matInput placeholder="Enter Full name"
+                     type="text"
+                     [errorStateMatcher]="matcher">
+
+
+              <mat-error *ngIf="doctorFormGroup.controls['fullName'].invalid &&
+            (doctorFormGroup.controls['fullName'].dirty || doctorFormGroup.controls['fullName'].touched)">
+
+                <span
+                  *ngIf="doctorFormGroup.controls['fullName'].errors.required">
+               Full name required
+            </span>
+
+
+              </mat-error>
+
+            </mat-form-field>
+
+          </div>
+
+          <div class="col l6 m6 s12">
+
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input class="input-placeholder"
+                     matInput placeholder="Enter Email"
+                     formControlName="email"
+                     type="email"
+                     [errorStateMatcher]="matcher">
+
+
+              <div *ngIf="doctorFormGroup.controls['email'].status === 'PENDING'" matSuffix>
+                <mat-spinner [diameter]="25"></mat-spinner>
+              </div>
+
+              <mat-error *ngIf="doctorFormGroup.controls['email'].invalid &&
+            (doctorFormGroup.controls['email'].dirty || doctorFormGroup.controls['email'].touched)">
+
+                <span
+                  *ngIf="doctorFormGroup.controls['email'].errors.pattern">
+               Email is invalid
+            </span>
+
+
+              </mat-error>
+              <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col s12 m6 l6">
+            <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                   <span matPrefix class="phone-number-international"
+                         (click)="openPhoneNumberDialog('phoneNumber', 'selectedPhoneNumber')">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(doctorFormGroup.controls['selectedPhoneNumber'].value.alpha2)">
+                       <span
+                         class="phone-number-international-font">+{{doctorFormGroup.controls['selectedPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+              <mat-label>Phone Number</mat-label>
+              <input formControlName="phoneNumber"
+                     matInput
+                     type="tel" [errorStateMatcher]="matcher"
+                     placeholder="e.g 08067189966">
+
+              <div *ngIf="doctorFormGroup.controls['phoneNumber'].status === 'PENDING'" matSuffix>
+                <mat-spinner [diameter]="25"></mat-spinner>
+              </div>
+
+
+              <mat-error *ngIf="doctorFormGroup.controls['phoneNumber'].invalid &&
+            (doctorFormGroup.controls['phoneNumber'].dirty || doctorFormGroup.controls['phoneNumber'].touched)">
+
+                <!--<span *ngIf="doctorFormGroup.controls['phoneNumber'].errors.required">-->
+                <!--Phone number is required-->
+                <!--</span>-->
+
+                <span
+                  *ngIf="!doctorFormGroup.controls['phoneNumber'].errors.required && doctorFormGroup.controls['phoneNumber'].errors.phoneNumberInvalid">
+               Phone number is invalid
+            </span>
+
+              </mat-error>
+
+
+            </mat-form-field>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                    <span matPrefix class="phone-number-international"
+                          (click)="openPhoneNumberDialog('otherPhoneNumber', 'selectedOtherPhoneNumber')">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(doctorFormGroup.controls['selectedOtherPhoneNumber'].value.alpha2)"
+                           alt="country">
+                      <span
+                        class="phone-number-international-font">+{{doctorFormGroup.controls['selectedOtherPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+              <mat-label>Other Phone Number</mat-label>
+              <input formControlName="otherPhoneNumber"
+                     matInput
+                     type="tel" [errorStateMatcher]="matcher"
+                     placeholder="e.g 08067189966">
+
+              <div *ngIf="doctorFormGroup.controls['otherPhoneNumber'].status === 'PENDING'" matSuffix>
+                <mat-spinner [diameter]="25"></mat-spinner>
+              </div>
+
+              <mat-error *ngIf="doctorFormGroup.controls['otherPhoneNumber'].invalid &&
+            (doctorFormGroup.controls['otherPhoneNumber'].dirty || doctorFormGroup.controls['otherPhoneNumber'].touched)">
+
+                   <span *ngIf="doctorFormGroup.controls['otherPhoneNumber'].errors.phoneNumberInvalid">
+                     Other phone number is invalid
+                   </span>
+
+                <span
+                  *ngIf="!doctorFormGroup.controls['otherPhoneNumber'].errors.phoneNumberInvalid && doctorFormGroup.controls['otherPhoneNumber'].errors.phoneNumberAlreadyTaken">
+                     Other phone number is already taken
+                  </span>
+
+
+              </mat-error>
+
+
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+
+          <div class="col m12 s12 l12">
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>Clinic address</mat-label>
+              <textarea class="input-placeholder"
+                        [rows]="4"
+                        matInput placeholder="Enter Clinic address"
+                        formControlName="address"
+                        type="text"
+                        [errorStateMatcher]="matcher"></textarea>
+
+              <mat-error *ngIf="doctorFormGroup.controls['address'].invalid &&
+            (doctorFormGroup.controls['address'].dirty || doctorFormGroup.controls['address'].touched)">
+
+                <!--<span *ngIf="doctorFormGroup.controls['address'].errors.required">-->
+                <!--Clinic address is required-->
+                <!--</span>-->
+
+              </mat-error>
+              <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+            </mat-form-field>
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div style="text-align: center;">
+
+      <button mat-flat-button class="check-out-btn" (click)="checkOut()">Check Out</button>
+
+    </div>
+  </div>
+</div>

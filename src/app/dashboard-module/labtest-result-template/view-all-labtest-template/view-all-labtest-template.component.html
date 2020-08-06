@@ -1,0 +1,75 @@
+<div class="custom-body">
+  <div class="container container-padding">
+
+    <div *ngIf="loading">
+      <div class="center">
+        <mat-spinner style="margin: 0 auto" [diameter]="30"></mat-spinner>
+      </div>
+    </div>
+
+    <div *ngIf="!loading">
+
+      <h2 style="text-align: center; text-transform: uppercase;">Lab test templates</h2>
+
+      <div *ngFor="let template of templates; let i = index">
+        <div style="padding-bottom: 10px">
+          <mat-expansion-panel (opened)="expansionOpened('jsonEditorCode' + i, template.isSetUp, i, template.content)"
+                               (closed)="expansionClosed()">
+
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5 style="text-align: center">{{template.position}}.
+                  Title: {{template.title}}, Assigned:
+                  <span
+                    [ngClass]="(template.assigned) ? 'assigned-yes' : 'assigned-no'">{{(template.assigned) ? 'YES' : 'NO'}}</span>
+                  <span *ngIf="template?.labTestCategory">, Lab Category Name: {{template?.labTestCategory?.name}}</span>
+                  <span *ngIf="template?.labTest">, Lab Test Name: {{template?.labTest?.name}}</span>
+
+
+                </h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                <!--Currently I am {{panelOpenState ? 'open' : 'closed'}}-->
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+
+
+            <button class="button-margin" mat-raised-button (click)="redirectTo(template.code, '/dashboard/lab/lab-test-template/edit')">
+              Edit
+            </button>
+
+            <button class="button-margin" *ngIf="template?.assigned === false" mat-raised-button class="button-padding"
+                    (click)="redirectTo(template.code, '/dashboard/lab/lab-test-template/assign')"> Assign
+            </button>
+
+            <button class="button-margin" *ngIf="template?.assigned === true" mat-raised-button (click)="removeAssignment(template.code, i)">
+              Remove Assignment
+            </button>
+
+            <div [attr.id]="'jsonEditorCode'+i"></div>
+
+          </mat-expansion-panel>
+        </div>
+      </div>
+
+      <div *ngIf="templates">
+        <div *ngIf="templates.length <= 0">
+          <mat-card>
+            <h4>No templates found</h4>
+          </mat-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div *ngIf="templates.length > 0">
+  <mat-paginator [length]="itemsLength"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="switchPage($event)">
+  </mat-paginator>
+
+</div>

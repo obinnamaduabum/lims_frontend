@@ -1,0 +1,31 @@
+mat-sidenav {
+  width: 200px;
+}
+
+
+.page-content {
+  min-height: 100vh;
+}
+
+
+
+@media screen and (max-width: 800px) {
+  .multiple-mat-card-padding {
+    padding-bottom: 20px;
+  }
+}
+
+
+@media screen and (min-width: 801px) {
+  .multiple-mat-card-padding {
+    padding: 20px;
+  }
+}
+
+
+.something-is-required {
+  margin: 20px;
+  padding: 10px;
+  background-color: red;
+  color: #ffffff;
+}

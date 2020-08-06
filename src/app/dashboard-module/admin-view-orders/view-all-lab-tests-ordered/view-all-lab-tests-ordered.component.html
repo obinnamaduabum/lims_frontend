@@ -1,0 +1,262 @@
+<div class="custom-body">
+  <div class="container" style="padding-top: 40px;padding-bottom: 40px">
+
+    <div *ngIf="loading">
+      <div class="center">
+        <mat-spinner style="margin: 0 auto" [diameter]="30"></mat-spinner>
+      </div>
+    </div>
+
+    <div *ngIf="!loading">
+
+      <!--<mat-card style="">-->
+
+        <mat-expansion-panel [expanded]="panelOpenState" (opened)="expansionOpened()"
+                             (closed)="expansionClosed()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h5 style="text-align: center">{{(panelOpenState) ? 'Hide Search Panel' : 'Show Search Panel'}}</h5>
+            </mat-panel-title>
+            <mat-panel-description>
+              <!--Currently I am {{panelOpenState ? 'open' : 'closed'}}-->
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+
+          <div [formGroup]="searchForm">
+            <div class="col s12 m12 l12">
+              <div class="row">
+
+                <div class="col s12 m6 l6">
+                  <mat-icon (click)="clearStartDate()" matRipple style="cursor: pointer"
+                            matTooltip="clear start date"
+                            aria-label="Button that displays a tooltip when focused or hovered "
+                  >clear
+                  </mat-icon>
+                  <mat-form-field class="alignment" appearance="outline">
+                    <input matInput formControlName="startDate"
+                           placeholder="Enter Start Date"
+                           (focus)="startDatePicker.open()"
+                           (input)="startDatePicker.open()"
+                           [matDatepicker]="startDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col s12 m6 l6">
+                  <mat-icon (click)="clearEndDate()"
+                            matTooltip="clear end date"
+                            style="cursor: pointer">clear
+                  </mat-icon>
+                  <mat-form-field class="alignment" appearance="outline">
+                    <input matInput formControlName="endDate"
+                           placeholder="Enter End Date"
+                           (focus)="endDatepicker.open()"
+                           (click)="endDatepicker.open()"
+                           (input)="endDatepicker.open()" [matDatepicker]="endDatepicker">
+                    <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatepicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col s12 m6 l6">
+                  <mat-form-field class="alignment" appearance="outline">
+                    <mat-label>Fullname</mat-label>
+                    <input class="input-placeholder"
+                           matInput placeholder="Enter Fullname"
+                           formControlName="fullName"
+                           type="text"
+                           [errorStateMatcher]="matcher">
+
+                    <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col s12 m6 l6">
+                  <mat-form-field class="alignment" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input class="input-placeholder"
+                           matInput placeholder="Enter Email"
+                           formControlName="email"
+                           type="text"
+                           [errorStateMatcher]="matcher">
+
+                    <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col s12 m6 l6">
+                  <mat-form-field class="alignment" appearance="outline">
+                    <mat-label>Lab Test Id</mat-label>
+                    <input class="input-placeholder"
+                           matInput placeholder="Enter Lab Test Id"
+                           formControlName="code"
+                           type="text"
+                           [errorStateMatcher]="matcher">
+
+                    <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col s12 m6 l6">
+                  <mat-form-field class="alignment" appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input class="input-placeholder"
+                           matInput placeholder="Enter PhoneNumber"
+                           formControlName="phoneNumber"
+                           type="text"
+                           [errorStateMatcher]="matcher">
+
+                    <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+
+
+              <div class="row">
+                <div class="col s12 m6 l6">
+                  <mat-form-field class="alignment" appearance="outline">
+                    <mat-label>Order ID</mat-label>
+                    <input class="input-placeholder"
+                           matInput placeholder="Enter Order Id"
+                           formControlName="orderId"
+                           type="text"
+                           [errorStateMatcher]="matcher">
+
+                    <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col s12 m6 l6">
+                  <mat-form-field class="alignment" appearance="outline">
+
+
+                    <mat-label>Sample Type</mat-label>
+                    <mat-select formControlName="sampleCollectedStatus">
+                      <mat-option *ngFor="let sample of sampleEnums" [value]="sample.value">
+                        {{sample.viewValue}}
+                      </mat-option>
+                    </mat-select>
+
+                    <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="text-align-center">
+                <button mat-button mat-flat-button class="view-btn" (click)="search()"> Search</button>
+              </div>
+
+            </div>
+          </div>
+
+
+        </mat-expansion-panel>
+      <!--</mat-card>-->
+      <div *ngIf="labTestOrderReceiptList.length > 0">
+
+        <div class="text-align-center" style="padding-top: 20px">
+          <h3 class="make-upper-case">Ordered Lab Test's</h3>
+        </div>
+
+
+        <table>
+
+          <thead>
+          <tr>
+            <th class="th-header" scope="col">S/N</th>
+            <th class="th-header" scope="col">Lab Test</th>
+            <th class="th-header" scope="col">Patient Id</th>
+            <th class="th-header" scope="col">Firstname</th>
+            <th class="th-header" scope="col">Lastname</th>
+            <th class="th-header" scope="col">Othername</th>
+            <th class="th-header" scope="col">Phonenumber</th>
+            <th class="th-header" scope="col">Registered Patient</th>
+            <th class="th-header" scope="col">Sample Collected</th>
+            <!--<th class="th-header" scope="col">Date Created</th>-->
+            <th class="th-header" scope="col">Date Sample was collected</th>
+            <th class="th-header" scope="col">Account Type</th>
+            <th class="th-header" scope="col">Go to Order</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of labTestOrderReceiptList" [ngClass]="(item?.sampleCollected?.sampleCollected)? 'cash-collected' : 'cash-not-collected'">
+            <td data-label="S/N">{{item.position}}</td>
+            <td data-label="Lab Test">{{(item?.labTest?.name) ? item?.labTest?.name: 'null'}}</td>
+            <td data-label="Code" style="word-break: break-all">{{(item?.patient?.code) ? item?.patient?.code: 'null'}}</td>
+            <td data-label="Firstname" style="word-break: break-all">{{item?.patient?.firstName}}</td>
+            <td data-label="Lastname" style="word-break: break-all">{{item?.patient?.lastName}}</td>
+            <td data-label="Othername" style="word-break: break-all">{{(item?.patient?.otherName) ? item?.patient?.otherName : 'null'}}</td>
+            <td data-label="Phonenumber" style="word-break: break-all">{{item?.patient?.phoneNumber}}</td>
+            <td data-label="Registered Patient" style="word-break: break-all">{{(item?.registeredPatient) ? 'YES' : 'NO'}}</td>
+            <td data-label="Sample Collected" style="word-break: break-all">
+              <mat-checkbox [disabled]="item?.sampleCollected?.sampleCollected === 'SAMPLE_COLLECTED'"
+                            [checked]="item?.sampleCollected?.sampleCollected === 'SAMPLE_COLLECTED'"
+                            (change)="updateSampleCollectionStatus($event, item?.uniqueId, item?.labTest?.id, item?.orderId)">
+                {{(item?.sampleCollected?.sampleCollected === 'SAMPLE_COLLECTED')? 'YES' : 'NO'}}
+              </mat-checkbox>
+            </td>
+
+
+            <!--<td data-label="Date Created">-->
+              <!--<span *ngIf="item?.sampleCollected?.dateCreated != null && item?.sampleCollected?.sampleCollected === 'SAMPLE_COLLECTED'">{{item?.sampleCollected?.dateCreated | date:"medium"}}</span>-->
+
+              <!--<span *ngIf="item?.sampleCollected?.dateCreated == null">null</span>-->
+            <!--</td>-->
+
+            <td data-label="Date Sample was collected" >
+              <span *ngIf="item?.sampleCollected?.dateUpdated != null && item?.sampleCollected?.sampleCollected === 'SAMPLE_COLLECTED'">{{item?.sampleCollected?.dateUpdated | date:"medium"}}</span>
+
+              <span *ngIf="item?.sampleCollected?.dateUpdated != null && item?.sampleCollected?.sampleCollected === 'SAMPLE_NOT_COLLECTED'">null</span>
+
+              <span *ngIf="item?.sampleCollected?.dateUpdated == null">null</span>
+            </td>
+
+            <td data-label="Account Type">
+              {{item?.accountType}}
+            </td>
+
+            <td data-label="Go to Order">
+              <button class="view-btn" mat-flat-button (click)="redirectTo(item?.orderId, item?.accountType)">View</button>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="labTestOrderReceiptList.length <= 0">
+        <div style="padding-top: 20px; padding-bottom: 20px">
+          <mat-card>
+            <h5>No record found (Only orders which cash was collected will appear here)</h5>
+          </mat-card>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div *ngIf="labTestOrderReceiptList.length > 0">
+  <mat-paginator [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="switchPage($event)">
+  </mat-paginator>
+
+</div>

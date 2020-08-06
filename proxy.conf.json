@@ -1,0 +1,25 @@
+{
+  "/v1/api/public/auth": {
+    "target": "http://localhost:8084",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/v1/api/public/default": {
+    "target": "http://localhost:8084",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/v1/api/protected/auth": {
+    "target": "http://localhost:8084",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/v1/api/protected/default": {
+    "target": "http://localhost:8084",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "secure": false,
+  "changeOrigin": true,
+  "logLevel": "info"
+}

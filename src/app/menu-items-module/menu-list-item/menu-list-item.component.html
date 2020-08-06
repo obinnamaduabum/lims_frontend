@@ -1,0 +1,52 @@
+<mat-nav-list  *ngIf="checkIfContainsRoles(item?.rolesAllowedToView)">
+
+  <mat-divider *ngIf="item.showDivider"></mat-divider>
+
+  <!--{{depth}}-->
+  <a mat-list-item (click)="onItemSelected(item)"
+     [routerLink]="item.route"
+     [routerLinkActive]="['active']"
+     [ngClass]="(item.children)?'parent-a-sidebar':''"
+     [ngStyle]="{'padding-left': (depth * 20) + 'px'}">
+
+
+    <!--<div>-->
+      <!--<span [ngStyle]="{'border-left': depth ? '1px solid #ffffff' : '', 'padding-right': '5px'}"></span>-->
+    <!--</div>-->
+
+    <mat-icon *ngIf="item.iconName" class="routeIcon">{{item.iconName}}</mat-icon>
+    <!--<span [ngClass]="(depth > 0)?'children-a-sidebar':''">{{item.displayName}}</span>-->
+    <span [ngStyle]="{'font-size.px': depth ? (16 - depth * 2): ''}">{{item.displayName}}</span>
+      <span *ngIf="item.children && item.children.length" class="my-icon">
+      <!--<span style="flex: 1 1 auto;"></span>-->
+      <span class="circle-plus closed my-icon" #plusMinusEffect>
+        <span class="circle my-icon">
+          <span class="horizontal"></span>
+          <span class="vertical"></span>
+        </span>
+      </span>
+    </span>
+
+  </a>
+
+
+  <!--<a  mat-list-item (click)="onItemSelected(item)"-->
+  <!--[routerLink]="item.route"-->
+  <!--[routerLinkActive]="['active']"-->
+  <!--[ngStyle]="{'padding-left': (depth * 10) + 'px'}">-->
+  <!--<mat-icon *ngIf="item.iconName" class="routeIcon">{{item.iconName}}</mat-icon>-->
+  <!--{{item.displayName}}-->
+  <!--<span fxFlex-->
+  <!--*ngIf="item.children && item.children.length">-->
+  <!--<span fxFlex></span>-->
+  <!--<mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">-->
+  <!--expand_more-->
+  <!--</mat-icon>-->
+  <!--</span>-->
+  <!--</a>-->
+
+  <div *ngIf="expanded">
+    <app-menu-list-item *ngFor="let child of item.children" [item]="child" [depth]="depth+1"></app-menu-list-item>
+  </div>
+
+</mat-nav-list>

@@ -1,0 +1,562 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="selectionChange($event)">
+  <mat-step label="Step 1" [stepControl]="signUpFormGroup">
+    <div [formGroup]="signUpFormGroup">
+
+      <div style="padding-top: 20px">
+
+        <div class="col m12 s12 l12">
+
+          <div class="row">
+
+            <div class="col m6 s12 l6">
+
+              <!--=== 'PENDING'"-->
+              <!--{{signUpFormGroup.controls['email'].status}}-->
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Email"
+                       formControlName="email"
+                       type="email"
+                       [errorStateMatcher]="matcher">
+
+
+                <div *ngIf="checkingEmailValidity" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+                <mat-error *ngIf="signUpFormGroup.controls['email'].invalid &&
+            (signUpFormGroup.controls['email'].dirty || signUpFormGroup.controls['email'].touched)">
+
+                  <span *ngIf="signUpFormGroup.controls['email'].errors.pattern">
+                     Email is invalid
+                  </span>
+
+                  <span *ngIf="signUpFormGroup.controls['email'].errors.emailDoesExist">
+                    Email already taken
+                  </span>
+
+                </mat-error>
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Firstname</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Firstname"
+                       formControlName="firstName"
+                       type="text"
+                       [errorStateMatcher]="matcher" required>
+
+                <mat-error *ngIf="signUpFormGroup.controls['firstName'].invalid &&
+            (signUpFormGroup.controls['firstName'].dirty || signUpFormGroup.controls['firstName'].touched)">
+
+              <span *ngIf="signUpFormGroup.controls['firstName'].errors.required">
+                Firstname is required
+              </span>
+
+                  <span
+                    *ngIf="!signUpFormGroup.controls['firstName'].errors.required && signUpFormGroup.controls['firstName'].errors.pattern">
+               Firstname is invalid
+            </span>
+
+
+                </mat-error>
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Lastname</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Lastname"
+                       formControlName="lastName"
+                       type="text"
+                       [errorStateMatcher]="matcher" required>
+
+                <mat-error *ngIf="signUpFormGroup.controls['lastName'].invalid &&
+            (signUpFormGroup.controls['lastName'].dirty || signUpFormGroup.controls['lastName'].touched)">
+
+              <span *ngIf="signUpFormGroup.controls['lastName'].errors.required">
+               Lastname is required
+              </span>
+
+                  <!--<span-->
+                  <!--*ngIf="!signUpFormGroup.controls['lastName'].errors.required && signUpFormGroup.controls['lastName'].errors.pattern">-->
+                  <!--Email is invalid-->
+                  <!--</span>-->
+
+
+                </mat-error>
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                <mat-label>Othername</mat-label>
+                <input matInput
+                       placeholder="Enter Othername"
+                       type="text"
+                       formControlName="otherName">
+
+
+                <mat-error *ngIf="signUpFormGroup.controls['otherName'].invalid &&
+            (signUpFormGroup.controls['otherName'].dirty || signUpFormGroup.controls['otherName'].touched)">
+
+
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                   <span matPrefix class="phone-number-international"
+                         (click)="openPhoneNumberDialog('phoneNumber', 'selectedPhoneNumber')">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(signUpFormGroup.controls['selectedPhoneNumber'].value.alpha2)">
+                       <span
+                         class="phone-number-international-font">+{{signUpFormGroup.controls['selectedPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+                <mat-label>Phonenumber</mat-label>
+                <input formControlName="phoneNumber"
+                       matInput
+                       type="tel" [errorStateMatcher]="matcher"
+                       placeholder="e.g 08067189966" required>
+
+                <div *ngIf="signUpFormGroup.controls['phoneNumber'].status === 'PENDING'" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+
+                <mat-error *ngIf="signUpFormGroup.controls['phoneNumber'].invalid &&
+            (signUpFormGroup.controls['phoneNumber'].dirty || signUpFormGroup.controls['phoneNumber'].touched)">
+
+              <span *ngIf="signUpFormGroup.controls['phoneNumber'].errors.required">
+                Phone number is required
+              </span>
+
+                  <span
+                    *ngIf="!signUpFormGroup.controls['phoneNumber'].errors.required && signUpFormGroup.controls['phoneNumber'].errors.phoneNumberInvalid">
+               Phone number is invalid
+            </span>
+
+                  <span
+                    *ngIf="!signUpFormGroup.controls['phoneNumber'].errors.required && signUpFormGroup.controls['phoneNumber'].errors.phoneNumberAlreadyTaken">
+               Phone number is already taken
+            </span>
+
+                </mat-error>
+
+
+              </mat-form-field>
+            </div>
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                    <span matPrefix class="phone-number-international"
+                          (click)="openPhoneNumberDialog('otherPhoneNumber', 'selectedOtherPhoneNumber')">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(signUpFormGroup.controls['selectedOtherPhoneNumber'].value.alpha2)"
+                           alt="country">
+                      <span
+                        class="phone-number-international-font">+{{signUpFormGroup.controls['selectedOtherPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+                <mat-label>Other Phone Number</mat-label>
+                <input formControlName="otherPhoneNumber"
+                       matInput
+                       type="tel" [errorStateMatcher]="matcher"
+                       placeholder="e.g 08067189966">
+
+                <div *ngIf="signUpFormGroup.controls['otherPhoneNumber'].status === 'PENDING'" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+                <mat-error *ngIf="signUpFormGroup.controls['otherPhoneNumber'].invalid &&
+            (signUpFormGroup.controls['otherPhoneNumber'].dirty || signUpFormGroup.controls['otherPhoneNumber'].touched)">
+
+                   <span *ngIf="signUpFormGroup.controls['otherPhoneNumber'].errors.phoneNumberInvalid">
+                     Other phone number is invalid
+                   </span>
+
+                  <span
+                    *ngIf="!signUpFormGroup.controls['otherPhoneNumber'].errors.phoneNumberInvalid && signUpFormGroup.controls['otherPhoneNumber'].errors.phoneNumberAlreadyTaken">
+                     Other phone number is already taken
+                  </span>
+
+                </mat-error>
+
+
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col m6 s12 l6">
+              <mat-form-field [ngClass]="(signUpFormGroup.get('password').value.length > 0)?'password-strength':''"
+                              class="alignment password-input-field-mat-input" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput
+                       placeholder="Enter password"
+                       autocomplete="off"
+                       type="{{ showPassword ? 'text' : 'password' }}"
+                       formControlName="password">
+
+                <mat-icon matSuffix
+                          style="cursor: pointer"
+                          *ngIf="signUpFormGroup.controls['password'].value?.length > 0"
+                          (click)="toggleShowPassword('password')">{{ showPassword ? 'visibility' :
+                  'visibility_off' }}
+                </mat-icon>
+
+                <mat-error *ngIf="signUpFormGroup.controls['password'].invalid &&
+            (signUpFormGroup.controls['password'].dirty || signUpFormGroup.controls['password'].touched)">
+
+              <span *ngIf="signUpFormGroup.controls['password'].errors.required">
+                Password is required
+              </span>
+
+                </mat-error>
+
+              </mat-form-field>
+
+
+              <div *ngIf="signUpFormGroup.get('password').value.length > 0">
+                <ng9-password-strength-bar
+                  [passwordToCheck]="signUpFormGroup.controls['password'].value"
+                  [barLabel]="barLabel"
+                  [strengthLabels]="strengthLabels"
+                  [barColors]="myColors">
+                </ng9-password-strength-bar>
+              </div>
+
+            </div>
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput
+                       placeholder="Enter confirm password"
+                       autocomplete="off"
+                       type="{{ showConfirmPassword ? 'text' : 'password' }}"
+                       formControlName="confirmPassword">
+
+                <mat-icon matSuffix
+                          style="cursor: pointer"
+                          *ngIf="signUpFormGroup.controls['confirmPassword'].value?.length > 0"
+                          (click)="toggleShowPassword('confirmPassword')">{{ showConfirmPassword ? 'visibility' :
+                  'visibility_off' }}
+                </mat-icon>
+
+                <mat-error *ngIf="signUpFormGroup.controls['confirmPassword'].invalid &&
+            (signUpFormGroup.controls['confirmPassword'].dirty || signUpFormGroup.controls['password'].touched)">
+
+              <span *ngIf="signUpFormGroup.controls['confirmPassword'].errors.required">
+                Confirm password is required
+              </span>
+
+                  <span
+                    *ngIf="!signUpFormGroup.controls['confirmPassword'].errors.required && signUpFormGroup.controls['confirmPassword'].errors.passwordMatchInvalid">
+                Confirm password does not match
+              </span>
+
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+        <div align="center">
+          <div>
+            <div *ngIf="!checkingEmailValidity">
+              <div *ngIf="signUpFormGroup.status !== 'PENDING'" class="padding-mobile">
+                <button class="btn-sign" mat-flat-button (click)="gotoStep2()">
+                  Next
+                </button>
+              </div>
+            </div>
+
+            <div *ngIf="signUpFormGroup.status === 'PENDING' || checkingEmailValidity">
+              <button class="btn-sign-spinner" mat-flat-button>
+              <span style="padding: 5px">
+                <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+              </span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </mat-step>
+  <mat-step label="Step 2">
+    <div [formGroup]="signUpFormGroupStepTwo" style="padding-bottom: 10px">
+      <div style="padding-top: 20px">
+        <div class="col m12 s12 l12">
+
+
+          <div class="row">
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <input matInput formControlName="dob" [matDatepicker]="picker" [max]="maxDate" (focus)="picker.open()"
+                       (click)="picker.open()"
+                       placeholder="Enter date of birth" required readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                <!--<mat-label>Password</mat-label>-->
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option *ngFor="let gender of genderArray" [value]="gender.value">
+                    {{gender.viewValue}}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="signUpFormGroupStepTwo.controls['gender'].invalid &&
+            (signUpFormGroupStepTwo.controls['gender'].dirty || signUpFormGroupStepTwo.controls['gender'].touched)">
+
+              <span *ngIf="signUpFormGroupStepTwo.controls['gender'].errors.required">
+                Gender is required
+              </span>
+
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-select formControlName="country" placeholder="Enter country" #singleSelect>
+                  <mat-option>
+                    <ngx-mat-select-search formControlName="countryFiltered"
+                                           [placeholderLabel]="'Find country...'"
+                                           [noEntriesFoundLabel]="'no match found'">
+
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let country of this.filteredCountries" [value]="country">
+                 <span class="span-one">
+                <img style="vertical-align: middle; width: 30px; height: 20px"
+                     [src]="getLocalCountryImageUrl(country.alpha2)" alt="country-flag">
+                <span class="span-custom"
+                      style="vertical-align: baseline; padding-bottom: 5px; padding-right: 5px;padding-left: 5px">{{country.name}}</span>
+                 </span>
+                  </mat-option>
+                </mat-select>
+
+
+                <mat-error *ngIf="signUpFormGroupStepTwo.controls['country'].invalid &&
+            (signUpFormGroupStepTwo.controls['country'].dirty || signUpFormGroupStepTwo.controls['country'].touched)">
+
+              <span *ngIf="signUpFormGroupStepTwo.controls['country'].errors.required">
+                Country is required
+              </span>
+
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+            <div class="col m6 s12 l6">
+              <mat-checkbox class="example-margin" formControlName="twoFactor">Enable 2FA</mat-checkbox>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col m12 s12 l12">
+              <mat-form-field class="alignment" appearance="outline">
+                <!--<mat-label>Email</mat-label>-->
+                <textarea class="input-placeholder"
+                          [rows]="4"
+                          matInput placeholder="Enter Address"
+                          formControlName="address"
+                          type="text"
+                          [errorStateMatcher]="matcher"></textarea>
+
+                <mat-error *ngIf="signUpFormGroupStepTwo.controls['address'].invalid &&
+            (signUpFormGroupStepTwo.controls['address'].dirty || signUpFormGroupStepTwo.controls['address'].touched)">
+
+              <span *ngIf="signUpFormGroupStepTwo.controls['address'].errors.required">
+                Address is required
+              </span>
+
+                </mat-error>
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="center">
+              <h4 class="uppercase">Add next of kin Information</h4>
+            </div>
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <!--<mat-label>Email</mat-label>-->
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Firstname"
+                       formControlName="nextOfKinFirstName"
+                       type="text"
+                       [errorStateMatcher]="matcher">
+
+                <mat-error *ngIf="signUpFormGroupStepTwo.controls['nextOfKinFirstName'].invalid &&
+            (signUpFormGroupStepTwo.controls['nextOfKinFirstName'].dirty || signUpFormGroupStepTwo.controls['nextOfKinFirstName'].touched)">
+
+              <span *ngIf="signUpFormGroupStepTwo.controls['nextOfKinFirstName'].errors.required">
+                Firstname is required
+              </span>
+
+                  <span
+                    *ngIf="!signUpFormGroupStepTwo.controls['nextOfKinFirstName'].errors.required && signUpFormGroupStepTwo.controls['nextOfKinFirstName'].errors.pattern">
+               Firstname is invalid
+            </span>
+
+
+                </mat-error>
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+
+            <div class="col m6 s12 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                <!--<mat-label>Password</mat-label>-->
+                <input matInput
+                       placeholder="Enter Lastname"
+                       type="text"
+                       formControlName="nextOfKinLastName">
+
+                <mat-error *ngIf="signUpFormGroupStepTwo.controls['nextOfKinLastName'].invalid &&
+            (signUpFormGroupStepTwo.controls['nextOfKinLastName'].dirty || signUpFormGroupStepTwo.controls['nextOfKinLastName'].touched)">
+
+              <span *ngIf="signUpFormGroupStepTwo.controls['nextOfKinLastName'].errors.required">
+                Lastname is required
+              </span>
+
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                    <span matPrefix class="phone-number-international"
+                          (click)="openPhoneNumberDialogStepTwo('nextOfKinPhoneNumber', 'nextOfKinSelectedPhoneNumber')">
+                     <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(signUpFormGroupStepTwo.controls['nextOfKinSelectedPhoneNumber'].value.alpha2)">
+                      <span
+                        class="phone-number-international-font">+{{signUpFormGroupStepTwo.controls['nextOfKinSelectedPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+                <!--<mat-label>Next of kin phone number</mat-label>-->
+                <input formControlName="nextOfKinPhoneNumber"
+                       matInput
+                       type="tel" [errorStateMatcher]="matcher"
+                       placeholder="e.g 08067189966">
+
+                <div *ngIf="signUpFormGroupStepTwo.controls['nextOfKinPhoneNumber'].status === 'PENDING'" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+
+                <mat-error *ngIf="signUpFormGroupStepTwo.controls['nextOfKinPhoneNumber'].invalid &&
+            (signUpFormGroupStepTwo.controls['nextOfKinPhoneNumber'].dirty || signUpFormGroupStepTwo.controls['nextOfKinPhoneNumber'].touched)">
+              <span *ngIf="signUpFormGroupStepTwo.controls['nextOfKinPhoneNumber'].errors.required">
+                Phone number is required
+              </span>
+                  <span
+                    *ngIf="!signUpFormGroupStepTwo.controls['nextOfKinPhoneNumber'].errors.required && signUpFormGroupStepTwo.controls['nextOfKinPhoneNumber'].errors.phoneNumberInvalid">
+               Phone number is invalid
+            </span>
+                </mat-error>
+
+
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col s12 m12 l12">
+          <div style="display: inline">
+
+            <div style="float: left">
+              <div>
+                <div *ngIf="signUpFormGroupStepTwo.status !== 'PENDING'" class="padding-mobile">
+                  <button class="btn-back" mat-flat-button (click)="previousStep()">
+                    Back
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div style="float: right">
+              <div>
+                <div *ngIf="!loadingStepTwo"
+                     class="padding-mobile">
+                  <button class="btn-sign" (click)="registerPatient()" mat-flat-button>
+                    Submit
+                  </button>
+                </div>
+
+                <div *ngIf="loadingStepTwo">
+                  <button class="btn-sign-spinner" mat-flat-button>
+                    <span style="padding: 5px">
+                      <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                    </span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+

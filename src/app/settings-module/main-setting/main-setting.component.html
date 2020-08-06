@@ -1,0 +1,76 @@
+<div style="margin-top: 40px; margin-bottom: 40px;">
+
+  <div class="container">
+
+    <mat-card>
+
+      <div align="center">
+        <h2>Edit Settings </h2>
+      </div>
+
+      <div *ngIf="loading" align="center">
+        <div style="padding: 5px">
+          <mat-spinner class="green-mat-spinner" [diameter]="25"></mat-spinner>
+        </div>
+      </div>
+      <div *ngIf="!loading" class="col s12 m12 l12" [formGroup]="adminSettingsFormGroup">
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <mat-label>DropBox Active:</mat-label>
+            <mat-slide-toggle
+              formControlName="dropBoxActive">
+            </mat-slide-toggle>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <mat-label>Data Storage Production:</mat-label>
+            <mat-slide-toggle
+              formControlName="dataStorageProduction">
+            </mat-slide-toggle>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <mat-form-field class="alignment password-input-field-mat-input">
+              <mat-label>Default Currency</mat-label>
+
+              <mat-select formControlName="currencyType">
+                <mat-option *ngFor="let currencyType of currencyTypes" [value]="currencyType.value">
+                  {{currencyType.viewValue}}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="adminSettingsFormGroup.controls['currencyType'].invalid &&
+            (adminSettingsFormGroup.controls['currencyType'].dirty ||
+            adminSettingsFormGroup.controls['currencyType'].touched)">
+              <span *ngIf="adminSettingsFormGroup.controls['currencyType'].errors.required">
+                Currency Type is required
+              </span>
+
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div align="center" style="padding: 20px">
+          <div *ngIf="!checkingRequest">
+            <button mat-flat-button color="primary" (click)="doUpdatePaymentMethod()">Submit</button>
+          </div>
+
+          <div *ngIf="checkingRequest" style="padding: 5px">
+            <button mat-flat-button color="primary">
+              <div style="padding: 5px">
+                <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+              </div>
+
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+</div>

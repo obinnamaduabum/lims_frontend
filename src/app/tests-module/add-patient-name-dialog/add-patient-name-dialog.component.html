@@ -1,0 +1,171 @@
+<div [formGroup]="addPatientFormGroup">
+  <div style="padding-top: 5px">
+    <div style="text-align: center">
+      <h3>ADD PATIENT INFORMATION</h3>
+    </div>
+    <div class="col m12 s12 l12">
+
+      <div class="row">
+
+        <div class="col m6 s12 l6">
+          <mat-form-field class="alignment" appearance="outline">
+            <mat-label>Firstname</mat-label>
+            <input class="input-placeholder"
+                   matInput placeholder="Enter Firstname"
+                   formControlName="firstName"
+                   type="text"
+                   [errorStateMatcher]="matcher" required>
+
+            <mat-error *ngIf="addPatientFormGroup.controls['firstName'].invalid &&
+            (addPatientFormGroup.controls['firstName'].dirty || addPatientFormGroup.controls['firstName'].touched)">
+
+              <span *ngIf="addPatientFormGroup.controls['firstName'].errors.required">
+                Firstname is required
+              </span>
+
+              <span
+                *ngIf="!addPatientFormGroup.controls['firstName'].errors.required && addPatientFormGroup.controls['firstName'].errors.pattern">
+               Firstname is invalid
+            </span>
+
+
+            </mat-error>
+            <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+          </mat-form-field>
+        </div>
+
+        <div class="col m6 s12 l6">
+          <mat-form-field class="alignment" appearance="outline">
+            <mat-label>Lastname</mat-label>
+            <input class="input-placeholder"
+                   matInput placeholder="Enter Lastname"
+                   formControlName="lastName"
+                   type="text"
+                   [errorStateMatcher]="matcher" required>
+
+            <mat-error *ngIf="addPatientFormGroup.controls['lastName'].invalid &&
+            (addPatientFormGroup.controls['lastName'].dirty || addPatientFormGroup.controls['lastName'].touched)">
+
+              <span *ngIf="addPatientFormGroup.controls['lastName'].errors.required">
+               Lastname is required
+              </span>
+
+              <!--<span-->
+              <!--*ngIf="!addPatientFormGroup.controls['lastName'].errors.required && addPatientFormGroup.controls['lastName'].errors.pattern">-->
+              <!--Email is invalid-->
+              <!--</span>-->
+
+
+            </mat-error>
+            <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col m6 s12 l6">
+          <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+            <mat-label>Othername</mat-label>
+            <input matInput
+                   placeholder="Enter Othername"
+                   type="text"
+                   formControlName="otherName">
+
+
+            <mat-error *ngIf="addPatientFormGroup.controls['otherName'].invalid &&
+            (addPatientFormGroup.controls['otherName'].dirty || addPatientFormGroup.controls['otherName'].touched)">
+
+
+            </mat-error>
+
+          </mat-form-field>
+        </div>
+
+        <div class="col m6 s12 l6">
+          <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+            <mat-label>File number</mat-label>
+            <input matInput
+                   placeholder="Enter Filenumber"
+                   type="text"
+                   formControlName="fileNumber">
+
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col s12 m12 l12">
+          <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                   <span matPrefix class="phone-number-international"
+                         (click)="openPhoneNumberDialog('phoneNumber', 'selectedPhoneNumber')">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(addPatientFormGroup.controls['selectedPhoneNumber'].value.alpha2)" alt="flag">
+                       <span
+                         class="phone-number-international-font">+{{addPatientFormGroup.controls['selectedPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+            <mat-label>Phone number</mat-label>
+            <input formControlName="phoneNumber"
+                   matInput
+                   type="tel" [errorStateMatcher]="matcher"
+                   placeholder="e.g 08067189966" required>
+
+            <div *ngIf="addPatientFormGroup.controls['phoneNumber'].status === 'PENDING'" matSuffix>
+              <mat-spinner [diameter]="25"></mat-spinner>
+            </div>
+
+
+            <mat-error *ngIf="addPatientFormGroup.controls['phoneNumber'].invalid &&
+            (addPatientFormGroup.controls['phoneNumber'].dirty || addPatientFormGroup.controls['phoneNumber'].touched)">
+
+              <span *ngIf="addPatientFormGroup.controls['phoneNumber'].errors.required">
+                Phone number is required
+              </span>
+
+              <span
+                *ngIf="!addPatientFormGroup.controls['phoneNumber'].errors.required && addPatientFormGroup.controls['phoneNumber'].errors.phoneNumberInvalid">
+               Phone number is invalid
+            </span>
+
+              <span
+                *ngIf="!addPatientFormGroup.controls['phoneNumber'].errors.required && addPatientFormGroup.controls['phoneNumber'].errors.phoneNumberAlreadyTaken">
+               Phone number is already taken
+            </span>
+
+            </mat-error>
+
+
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div align="center">
+      <div>
+        <div *ngIf="!checkingEmailValidity">
+          <div *ngIf="addPatientFormGroup.status !== 'PENDING'" class="padding-mobile">
+            <button class="add-to-cart" mat-flat-button (click)="addPatientInfo()">
+              Next
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="addPatientFormGroup.status === 'PENDING' || checkingEmailValidity">
+          <button class="btn-sign-spinner" mat-flat-button>
+              <span style="padding: 5px">
+                <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+              </span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

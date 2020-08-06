@@ -1,0 +1,130 @@
+.footer-background-image {
+  /*background-image: url("/public/assets/svg/footer-no-color-opacity.svg");*/
+  background-size: 300px;
+}
+
+.footer-background-color {
+  background-color: #282c34;
+  display: grid;
+
+}
+.bottom-footer {
+  color: #ffffff;
+  background-color: #282c34;
+  padding: 20px;
+}
+
+.copy-right-footer {
+  padding-top: 10px
+}
+
+.div-powered-by {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px
+}
+
+.footer-card-padding {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.card.card-internal-padding {
+  background-color: #282c34;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.card-internal-padding {
+  padding: 15px;
+}
+
+.card-internal-padding p {
+  color: #ffffff !important;
+  text-align: center;
+}
+
+@media only screen and (min-width: 801px) {
+
+  .footer-card-padding {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+
+  .footer-card-padding {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+  }
+}
+
+.footer-icon {
+  width: 20px;
+}
+
+
+.div-footer-icon {
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
+}
+
+
+/*float button*/
+.float-button-enter {
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:20px;
+  right:18px;
+  background-color: #007bff;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  z-index: 999;
+  padding: 15px;
+  opacity: 0.01;
+}
+
+.float-button-enter.float-button-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.float-button-enter-leave {
+  opacity: 1;
+}
+
+.float-button-enter.float-button-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+/*.my-float{*/
+/*margin-top:20px;*/
+/*}*/
+
+
+.triangle-up {
+  text-align:center;
+  bottom:20px;
+  right:18px;
+  position:fixed;
+  z-index: 999;
+  width: 60px;
+  height: 40px;
+  border-radius: 5px;
+  border-bottom: solid 30px #007bff;
+  border-left: solid 30px transparent;
+  border-right: solid 30px transparent;
+  box-shadow: 2px 2px 3px rgba(191, 191, 191, 0.85);
+}
+
+
+a.merlin-labs-footer-link{
+  color: #007bff;
+}

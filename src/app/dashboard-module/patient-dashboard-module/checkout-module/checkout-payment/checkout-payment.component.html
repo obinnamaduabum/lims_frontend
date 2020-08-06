@@ -1,0 +1,111 @@
+<div class="col l12 m12 s12">
+  <div class="row">
+
+    <div style="text-align: center">
+      <h1 style="padding: 20px">AMOUNT TO PAY:
+
+        <span *ngIf="adminSettingsModel?.currencyType === 'NGN'">
+        <span>&#x20A6;</span>
+      </span>
+
+        <span *ngIf="adminSettingsModel?.currencyType === 'USD'">
+          <span>&#36;</span>
+      </span>
+
+        <span *ngIf="adminSettingsModel?.currencyType === 'EUR'">
+        <span>&#163;</span>
+      </span>
+
+        {{grandTotal | number:'1.2-2'}}
+
+      </h1>
+    </div>
+
+
+    <div class="col l5 m12 s12 blur-div">
+      <div style="padding-bottom: 40px">
+        <div class="container">
+          <div *ngIf="isDoneLoading">
+            <app-payment-methods [paymentInfoModel]="paymentInfoModel"
+                                 [itemsInCart]="itemsInCart">
+            </app-payment-methods>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col l7 m12 s12">
+      <div>
+        <div style="padding-bottom: 20px">
+          <div *ngIf="itemsInCart.length <= 0">
+
+
+            <mat-card>
+              <p>No items in cart</p>
+            </mat-card>
+
+          </div>
+          <div *ngIf="itemsInCart.length > 0" class="custom-padding">
+
+            <h2 style="text-align: center">Details</h2>
+
+            <table>
+              <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of itemsInCart">
+                <td data-label="Name">{{item.name}}</td>
+                <td data-label="Quantity">
+                  <div class="quantity buttons_added">
+                    <input type="number" step="1" min="1" max="" name="quantity"
+                           [value]="item.quantity" title="Qty" class="input-text qty text"
+                           size="4" pattern="" inputmode="" disabled>
+                  </div>
+                </td>
+                <td data-label="Price">
+                  <div>
+                    <span *ngIf="item.currencyCode === 'NGN'">
+                      <span>Price: <span>&#x20A6;</span>{{item.price | number:'1.2-2'}}</span>
+                    </span>
+
+                    <span *ngIf="item.currencyCode === 'USD'">
+                      <span>Price: <span>&#36;</span>{{item.price | number:'1.2-2'}}</span>
+                    </span>
+
+                    <span *ngIf="item.currencyCode === 'EUR'">
+                      <span>Price: <span>&#163;</span>{{item.price | number:'1.2-2'}}</span>
+                    </span>
+
+                   </div>
+                </td>
+                <td data-label="Total">
+                  <div>
+            <span *ngIf="item.currencyCode === 'NGN'">
+              <span>Price: <span>&#x20A6;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+                    <span *ngIf="item.currencyCode === 'USD'">
+              <span>Price: <span>&#36;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+
+                    <span *ngIf="item.currencyCode === 'EUR'">
+              <span>Price: <span>&#163;</span>{{item.total | number:'1.2-2'}}</span>
+            </span>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

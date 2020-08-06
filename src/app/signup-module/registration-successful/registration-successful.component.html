@@ -1,0 +1,28 @@
+<div class="registration-successful-top-div">
+
+
+  <lottie-animation-view
+    [options]="lottieConfig"
+    [width]="100"
+    [height]="200"
+    (animCreated)="handleAnimation($event)">
+  </lottie-animation-view>
+
+</div>
+
+<div class="registration-successful-bottom-div">
+  <div class="center">
+    <p>
+      Verification email has been sent to {{data.email}}
+    </p>
+  </div>
+
+
+  <div class="center">
+    <button mat-flat-button (click)="redirect('/login')" >
+      Click here to goto Login page
+    </button>
+  </div>
+
+
+</div>

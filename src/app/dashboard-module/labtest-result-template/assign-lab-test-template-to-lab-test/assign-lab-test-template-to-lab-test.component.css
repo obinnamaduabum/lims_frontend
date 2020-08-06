@@ -1,0 +1,18 @@
+.mat-form-field {
+  display: inline;
+}
+
+
+.removed {
+  color: #ffffff;
+  background-color: #b10a0f;
+}
+
+.added {
+  background-color: #0dda16;
+  color: #ffffff;
+}
+
+.div-padding {
+  padding: 10px;
+}

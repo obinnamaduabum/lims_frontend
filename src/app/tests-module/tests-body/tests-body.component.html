@@ -1,0 +1,31 @@
+<div class="entire-page">
+
+
+  <mat-sidenav-container [hasBackdrop] (backdropClick)="closeSidebar()">
+    <mat-sidenav #leftSideNav
+                 [fixedInViewport]="true"
+                 position="end"
+                 class="my-website-sidebar"
+                 [mode]="side">
+<!--      <app-sidebar></app-sidebar>-->
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <div class="page-content" [ngClass]="(isSidebarOpen) ? 'root-div':''">
+        <app-header></app-header>
+
+        <div class="custom-body">
+          <div class="login-page-resize login-page">
+              <router-outlet></router-outlet>
+          </div>
+          <app-footer></app-footer>
+        </div>
+
+      </div>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>

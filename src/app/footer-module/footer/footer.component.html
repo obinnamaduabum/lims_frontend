@@ -1,0 +1,34 @@
+<div style=" margin: 0;">
+  <div class="footer-background-color">
+
+    <div class="footer-background-image" style="background-image: url('../../../assets/images/svg/footer-no-color-opacity.svg')">
+      <div class="col m12 s12 l12">
+        <div class="row">
+
+          <div *ngFor="let info of infoList">
+            <div class="col m4 s12 l4 footer-card-padding">
+              <div class="card card-internal-padding">
+                <div class="div-footer-icon">
+                  <img class="footer-icon" [src]="info.imgUrl" alt="footer-icon"/>
+                </div>
+                <p><b style="word-break: break-all">{{info.value}}</b></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="bottom-footer">
+    <div align="center" class="copy-right-footer text-center">
+      &copy;&nbsp;2019 <a class="merlin-labs-footer-link" href="/">Hertfordshire Labs</a>
+    </div>
+    <div align="center" class="copy-right-footer text-center">
+      <div class="div-powered-by">Powered By <span class="powered-by-text">Litehauzz</span>
+      </div>
+    </div>
+  </div>
+</div>

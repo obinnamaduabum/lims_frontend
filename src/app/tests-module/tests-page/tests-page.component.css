@@ -1,0 +1,77 @@
+.mat-form-field {
+  display: inline;
+}
+
+.search {
+  border-radius: 5px;
+  color: #fff;
+  font-size: 15px;
+  background-color: #47b329;
+  border-color: transparent;
+}
+
+.search:active, .search:hover {
+  font-size: 15px;
+  color: #fff;
+  background-color: #36971e;
+  border-color: transparent;
+}
+
+
+
+.add-to-cart {
+  color: #fff;
+  font-size: 12px;
+  background-color: #2196F3;
+  border-color: transparent;
+}
+
+.add-to-cart:active, .add-to-cart:hover {
+  font-size: 12px;
+  color: #fff;
+  background-color: #2196F3;
+  border-color: transparent;
+}
+
+
+@media screen and (max-width: 800px) {
+  .multiple-mat-card-padding {
+    padding-bottom: 20px;
+  }
+
+  .display-on-desktop-category {
+    display: none;
+  }
+}
+
+
+@media screen and (min-width: 801px) {
+  .multiple-mat-card-padding {
+  padding: 20px;
+  }
+
+
+  .display-on-desktop-category {
+    display: inline-block;
+  }
+
+  .search {
+
+  }
+}
+
+
+.mat-icon.add-to-cart-btn {
+  vertical-align: middle;
+  font-size: 18px !important;
+}
+
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0 !important;
+}

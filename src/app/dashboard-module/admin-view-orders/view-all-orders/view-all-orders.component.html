@@ -1,0 +1,165 @@
+<div class="custom-body">
+  <div class="container" style="padding-top: 40px;padding-bottom: 40px">
+
+    <div class="center" style="padding: 10px" *ngIf="loading">
+      <mat-spinner style="margin: 0 auto" [diameter]="30"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+
+      <mat-card style="">
+
+        <div [formGroup]="searchForm">
+          <div class="col s12 m12 l12">
+            <div class="row">
+
+              <div class="col s12 m6 l6">
+                <mat-icon (click)="clearStartDate()" matRipple style="cursor: pointer"
+                          matTooltip="clear start date"
+                          aria-label="Button that displays a tooltip when focused or hovered ">clear
+                </mat-icon>
+                <mat-form-field class="alignment" appearance="outline">
+                  <input matInput formControlName="startDate"
+                         placeholder="Enter Start Date"
+                         (focus)="startDatePicker.open()"
+                         (input)="startDatePicker.open()"
+                         [matDatepicker]="startDatePicker">
+                  <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+
+              <div class="col s12 m6 l6">
+                <mat-icon (click)="clearEndDate()"
+                          matTooltip="clear end date"
+                          style="cursor: pointer">clear
+                </mat-icon>
+                <mat-form-field class="alignment" appearance="outline">
+                  <input matInput formControlName="endDate"
+                         placeholder="Enter End Date"
+                         (focus)="endDatepicker.open()"
+                         (click)="endDatepicker.open()"
+                         (input)="endDatepicker.open()" [matDatepicker]="endDatepicker">
+                  <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #endDatepicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col s12 m6 l6">
+                <mat-form-field class="alignment" appearance="outline">
+                  <mat-label>Order Id</mat-label>
+                  <input class="input-placeholder"
+                         matInput placeholder="Order Id"
+                         formControlName="code"
+                         type="text"
+                         [errorStateMatcher]="matcher">
+
+                  <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="text-align-center">
+              <button mat-button mat-flat-button class="view-btn" (click)="search()"> Search</button>
+            </div>
+
+          </div>
+        </div>
+      </mat-card>
+
+
+      <div *ngIf="labTestOrderReceiptList.length > 0">
+
+        <div class="text-align-center" style="padding-top: 20px">
+          <h3 class="make-upper-case">Order's</h3>
+        </div>
+
+
+        <table>
+
+          <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Order Id</th>
+            <th scope="col">Price</th>
+            <th scope="col">Money Collected</th>
+            <th scope="col">Date</th>
+            <th scope="col">Ordered By</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of labTestOrderReceiptList"
+              [ngClass]="(item.cashCollected)? 'cash-collected' : 'cash-not-collected'">
+            <td data-label="id">{{item.position}}</td>
+            <td data-label="Code" style="word-break: break-all">{{item.code}}</td>
+            <td data-label="Price">
+
+              <div>
+                <span *ngIf="item?.currencyType === 'NGN'">
+                  <span><span>&#x20A6;</span>{{item.price | number:'1.2-2'}}</span>
+                </span>
+
+                <span *ngIf="item?.currencyType === 'USD'">
+              <span><span>&#36;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+
+                <span *ngIf="item?.currencyType === 'EUR'">
+              <span><span>&#163;</span>{{item.price | number:'1.2-2'}}</span>
+            </span>
+              </div>
+
+            </td>
+
+            <td data-label="Cash Collected">
+              <span class="cash-collected-text" *ngIf="item.cashCollected === true">YES</span>
+              <span class="cash-not-collected-text" *ngIf="item.cashCollected === false">NO</span>
+            </td>
+
+            <td data-label="Date">
+              {{item.dateCreated | date:"medium"}}
+            </td>
+
+            <td data-label="Account Type">
+              {{item?.orderedByWhatTypeOfAccount}}
+            </td>
+
+            <td data-label="">
+              <!--<div *ngIf="item?.cashCollected">-->
+              <button class="view-btn" mat-flat-button (click)="redirectTo(item.id, item?.orderedByWhatTypeOfAccount)">
+                View
+              </button>
+              <!--</div>-->
+
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="labTestOrderReceiptList.length <= 0">
+        <div style="padding-top: 20px; padding-bottom: 20px">
+          <mat-card>
+            <h5>No record found</h5>
+          </mat-card>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div *ngIf="labTestOrderReceiptList.length > 0">
+  <mat-paginator [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="switchPage($event)">
+  </mat-paginator>
+
+</div>

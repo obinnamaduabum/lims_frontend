@@ -1,0 +1,163 @@
+<div style="padding-top: 30px; padding-bottom: 30px">
+  <div class="container">
+    <mat-card>
+
+      <h3 style="text-align: center">Edit Profile</h3>
+      <div class="col m12 s12 l12" [formGroup]="editProfileFormGroup">
+
+        <div class="row">
+
+          <div class="col m6 s12 l6">
+
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input class="input-placeholder"
+                     matInput placeholder="Enter Email"
+                     formControlName="email"
+                     type="email"
+                     [errorStateMatcher]="matcher">
+
+            </mat-form-field>
+          </div>
+
+
+          <div class="col m6 s12 l6">
+
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>Firstname</mat-label>
+              <input class="input-placeholder"
+                     matInput placeholder="Enter Firstname"
+                     formControlName="firstName"
+                     type="text"
+                     [errorStateMatcher]="matcher" readonly>
+
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col m6 s12 l6">
+
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>Lastname</mat-label>
+              <input class="input-placeholder"
+                     matInput placeholder="Enter Lastname"
+                     formControlName="lastName"
+                     type="text"
+                     [errorStateMatcher]="matcher" readonly>
+
+            </mat-form-field>
+          </div>
+
+          <div class="col m6 s12 l6">
+
+            <mat-form-field class="alignment" appearance="outline">
+              <mat-label>Othername</mat-label>
+              <input class="input-placeholder"
+                     matInput placeholder="Enter Othername"
+                     formControlName="otherName"
+                     type="text"
+                     [errorStateMatcher]="matcher">
+
+            </mat-form-field>
+          </div>
+
+
+        </div>
+
+        <div class="row">
+
+          <div class="col s12 m6 l6">
+            <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                   <span matPrefix class="phone-number-international">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(editProfileFormGroup.controls['selectedPhoneNumber'].value.alpha2)">
+                       <span
+                         class="phone-number-international-font">+{{editProfileFormGroup.controls['selectedPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+              <mat-label>Phonenumber</mat-label>
+              <input formControlName="phoneNumber"
+                     matInput
+                     type="tel" [errorStateMatcher]="matcher"
+                     placeholder="e.g 08067189966" readonly>
+
+              <div *ngIf="editProfileFormGroup.controls['phoneNumber'].status === 'PENDING'" matSuffix>
+                <mat-spinner [diameter]="25"></mat-spinner>
+              </div>
+
+
+              <mat-error *ngIf="editProfileFormGroup.controls['phoneNumber'].invalid &&
+            (editProfileFormGroup.controls['phoneNumber'].dirty || editProfileFormGroup.controls['phoneNumber'].touched)">
+
+              <span *ngIf="editProfileFormGroup.controls['phoneNumber'].errors.required">
+                Phone number is required
+              </span>
+
+                <span
+                  *ngIf="!editProfileFormGroup.controls['phoneNumber'].errors.required && editProfileFormGroup.controls['phoneNumber'].errors.phoneNumberInvalid">
+               Phone number is invalid
+            </span>
+
+                <span
+                  *ngIf="!editProfileFormGroup.controls['phoneNumber'].errors.required && editProfileFormGroup.controls['phoneNumber'].errors.phoneNumberAlreadyTaken">
+               Phone number is already taken
+            </span>
+
+              </mat-error>
+
+
+            </mat-form-field>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                    <span matPrefix class="phone-number-international"
+                          (click)="openPhoneNumberDialog('otherPhoneNumber', 'selectedOtherPhoneNumber')">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(editProfileFormGroup.controls['selectedOtherPhoneNumber'].value.alpha2)"
+                           alt="country">
+                      <span
+                        class="phone-number-international-font">+{{editProfileFormGroup.controls['selectedOtherPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+              <mat-label>Other Phone Number</mat-label>
+              <input formControlName="otherPhoneNumber"
+                     matInput
+                     type="tel" [errorStateMatcher]="matcher"
+                     placeholder="e.g 08067189966">
+
+              <div *ngIf="editProfileFormGroup.controls['otherPhoneNumber'].status === 'PENDING'" matSuffix>
+                <mat-spinner [diameter]="25"></mat-spinner>
+              </div>
+
+              <mat-error *ngIf="editProfileFormGroup.controls['otherPhoneNumber'].invalid &&
+            (editProfileFormGroup.controls['otherPhoneNumber'].dirty || editProfileFormGroup.controls['otherPhoneNumber'].touched)">
+
+                   <span *ngIf="editProfileFormGroup.controls['otherPhoneNumber'].errors.phoneNumberInvalid">
+                     Other phone number is invalid
+                   </span>
+
+                <span
+                  *ngIf="!editProfileFormGroup.controls['otherPhoneNumber'].errors.phoneNumberInvalid && editProfileFormGroup.controls['otherPhoneNumber'].errors.phoneNumberAlreadyTaken">
+                     Other phone number is already taken
+                  </span>
+
+
+              </mat-error>
+
+
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+
+
+    </mat-card>
+  </div>
+</div>

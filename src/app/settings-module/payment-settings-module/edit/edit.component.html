@@ -1,0 +1,108 @@
+<div style="margin-top: 10px; margin-bottom: 40px;">
+
+  <div class="container">
+
+    <mat-card>
+
+      <div align="center">
+        <h2>Edit Payment </h2>
+      </div>
+
+
+      <div *ngIf="loading" align="center">
+        <div style="padding: 5px">
+          <mat-spinner class="green-mat-spinner" color="accent" [diameter]="25"></mat-spinner>
+        </div>
+      </div>
+
+      <div *ngIf="!loading" class="col s12 m12 l12" [formGroup]="paymentFormGroup">
+        <div class="row">
+
+
+          <div class="col s12 m6 l6">
+            <mat-form-field>
+              <mat-label>Testing Verification Url</mat-label>
+              <input matInput="" formControlName="testingVerifyUrl">
+            </mat-form-field>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <mat-form-field>
+              <mat-label>Testing Secret</mat-label>
+              <input matInput="" formControlName="testingSecret">
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+
+
+          <div class="col s12 m6 l6">
+            <mat-form-field>
+              <mat-label>Testing Public Key</mat-label>
+              <input matInput="" formControlName="testingPublicKey">
+            </mat-form-field>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <mat-form-field>
+              <mat-label>Live Verify Url</mat-label>
+              <input matInput="" formControlName="liveVerifyUrl">
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <mat-form-field>
+              <mat-label>Live Secret</mat-label>
+              <input matInput="" formControlName="liveSecret">
+            </mat-form-field>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <mat-form-field>
+              <mat-label>Live Public Key</mat-label>
+              <input matInput="" formControlName="livePublicKey">
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <mat-label>Live active:</mat-label>
+            <mat-slide-toggle
+              formControlName="liveActive">
+            </mat-slide-toggle>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <mat-label>Enabled:</mat-label>
+            <mat-slide-toggle
+              formControlName="enabled">
+            </mat-slide-toggle>
+          </div>
+
+        </div>
+
+
+
+        <div align="center" style="padding: 20px">
+          <div *ngIf="!checkingRequest">
+            <button class="btn-green-submit" mat-flat-button  (click)="doUpdatePaymentMethod()">Submit</button>
+          </div>
+
+          <div *ngIf="checkingRequest" style="padding: 5px">
+            <button mat-flat-button class="btn-green-submit">
+              <span style="padding: 5px">
+                <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+              </span>
+
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+</div>

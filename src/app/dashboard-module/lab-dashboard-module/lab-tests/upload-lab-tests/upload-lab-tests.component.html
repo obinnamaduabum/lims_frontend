@@ -1,0 +1,56 @@
+
+
+<div class="container">
+  <div class="mat-card-padding">
+    <mat-card>
+
+      <h3>Upload Lab Test Categories</h3>
+
+      <div class="form-group">
+        <label for="file">Choose File</label>
+        <input type="file"
+               (change)="handleFileInput($event.target.files, 'category')">
+
+        <button mat-button mat-flat-button (click)="uploadFileLabCategory()" class="upload">Upload</button>
+
+
+
+        <div *ngIf="labTestCategoryFileToUploadErrors.length > 0" class="errors-page">
+          <h4>Error's</h4>
+          <div *ngFor="let obj of labTestCategoryFileToUploadErrors">
+            <p>{{obj.name}}</p>
+          </div>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+
+
+  <div class="mat-card-padding">
+    <mat-card>
+
+      <h3>Upload Tests</h3>
+
+      <div class="form-group">
+        <label for="file">Choose File</label>
+        <input type="file"
+               id="file"
+               (change)="handleFileInput($event.target.files, 'test')">
+
+        <button mat-flat-button (click)="uploadFileLabTest()" class="upload">Upload</button>
+
+
+
+        <div *ngIf="labTestFileToUploadErrors.length > 0" class="errors-page">
+          <h4>Error's</h4>
+          <div *ngFor="let obj of labTestFileToUploadErrors">
+            <p>{{obj.name}}</p>
+          </div>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+
+</div>

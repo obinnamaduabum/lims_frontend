@@ -1,0 +1,41 @@
+<div style="background-color: #ffffff; box-shadow: 0 8px 8px -6px rgba(0,0,0,.5);">
+  <div class="container">
+    <div class="nav-bar">
+
+      <div class='text-align-center'>
+        <a class="header-logo" (click)="redirect()">
+          <img style="width: 120px" src="/assets/images/svg/hl-block.svg" alt="logo"/>
+        </a>
+      </div>
+
+      <div class="left-side">
+        <a class="nav-link" routerLink="/" ><b>Home</b></a>
+        <a class="nav-link" routerLink="/lab-test" routerLinkActive="nav-link-active" [routerLinkActiveOptions]="{exact: true}"><b>
+          Lab tests
+          </b>
+        </a>
+      </div>
+
+      <div class="right-side">
+
+        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/login"><b>Login</b></a>
+
+        <a class="nav-link" routerLinkActive="nav-link-active" routerLink="/registration"><b>Get Started</b></a>
+
+        <div class="add-cursor" style="padding: 10px" matRipple>
+          <mat-icon routerLink="/lab-test/cart" [matBadge]="itemsInCart.length" matBadgePosition="above after">shopping_cart
+          </mat-icon>
+        </div>
+
+        <div style="vertical-align: bottom" (click)="hamburgerIconClick()"
+             class="hamburger--emphatic display-only-on-mobile" #hamburgerIcon>
+          <div class="hamburger">
+            <div class="hamburger-box">
+              <div class="hamburger-inner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

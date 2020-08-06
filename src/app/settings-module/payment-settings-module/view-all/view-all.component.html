@@ -1,0 +1,35 @@
+<div class="container">
+  <div *ngIf="listOfPaymentMethods.length > 0">
+    <div *ngFor="let paymentMethod of listOfPaymentMethods" class="mat-card-padding">
+      <mat-card (click)="redirectToEdit(paymentMethod.id)">
+        <h4 class="display-inline">{{paymentMethod?.paymentMethodName}}</h4>
+        <div style="float: right" class="display-inline">
+
+          <div class="display-inline" style="padding: 5px">
+
+
+          <div class="display-inline"><b>Enabled:</b></div>
+          <div class="display-inline" style="vertical-align: bottom;">
+            <div class="circle-div" [ngClass]="(paymentMethod.enabled) ? 'green':'red'"></div>
+          </div>
+          </div>
+
+          <div class="display-inline" style="padding: 5px">
+            <div class="display-inline"><b>Live: </b></div>
+            <div class="display-inline" style="vertical-align: bottom;">
+              <div class="circle-div" [ngClass]="(paymentMethod.liveActive) ? 'green':'red'"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div *ngIf="listOfPaymentMethods.length <= 0">
+    <mat-card> No record found</mat-card>
+  </div>
+
+</div>

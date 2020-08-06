@@ -1,0 +1,259 @@
+<!--<mat-toolbar color="primary" style="height: 45px; font-size: 16px; font-weight: bold; color: #E6E8EA">-->
+<!--<span><a  mat-button (click)="breadCrumbMain()" style="color: white;">Main</a></span>-->
+
+<!--<span *ngFor="let m of menuHeader; let indx = index" style="color: white;">-->
+<!--<a  mat-button (click)="breadCrumb(menuHeader, indx)" >{{m.label}}-->
+<!--<mat-icon fxFlex="10">{{m.icon}}</mat-icon></a>-->
+<!--</span>-->
+
+<!--</mat-toolbar>-->
+
+<div class="container">
+
+
+  <mat-card style="">
+
+    <!--<button mat-button (click)="showLessOrMoreToggle()">show less/more</button>-->
+
+    <div [formGroup]="searchForm">
+      <div *ngIf="!loadingPageData">
+
+        <div class="col s12 m12 l12">
+          <div class="row">
+
+            <div class="col s12 m6 l6">
+              <mat-icon (click)="clearStartDate()" matRipple style="cursor: pointer"
+                        matTooltip="clear start date"
+                        aria-label="Button that displays a tooltip when focused or hovered "
+              >clear
+              </mat-icon>
+              <mat-form-field class="alignment" appearance="outline">
+                <input matInput formControlName="startDate"
+                       placeholder="Enter Start Date"
+                       (focus)="startDatePicker.open()"
+                       (input)="startDatePicker.open()"
+                       [matDatepicker]="startDatePicker" readonly>
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col s12 m6 l6">
+              <mat-icon (click)="clearEndDate()"
+                        matTooltip="clear end date"
+                        style="cursor: pointer">clear
+              </mat-icon>
+              <mat-form-field class="alignment" appearance="outline">
+                <input matInput formControlName="endDate"
+                       placeholder="Enter End Date"
+                       (focus)="endDatepicker.open()"
+                       (click)="endDatepicker.open()"
+                       (input)="endDatepicker.open()" [matDatepicker]="endDatepicker" readonly>
+                <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatepicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col s12 m12 l12">
+          <div class="row">
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>User Id</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter User ID"
+                       formControlName="code"
+                       type="text"
+                       [errorStateMatcher]="matcher">
+
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Fullname</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Fullname"
+                       formControlName="fullName"
+                       type="text"
+                       [errorStateMatcher]="matcher">
+
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+                    <span matPrefix class="phone-number-international"
+                          (click)="openPhoneNumberDialog('phoneNumber', 'selectedPhoneNumber')">
+                      <img class="custom-dropdown-arrow" src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                      <img class="phone-number-international-img"
+                           [src]="getLocalCountryImageUrl(searchForm.controls['selectedPhoneNumber'].value.alpha2)"
+                           alt="country">
+                      <span
+                        class="phone-number-international-font">+{{searchForm.controls['selectedPhoneNumber'].value.internationalPhoneNumber}}</span>
+                    </span>
+
+                <mat-label>Phone Number</mat-label>
+                <input formControlName="phoneNumber"
+                       matInput
+                       type="tel" [errorStateMatcher]="matcher"
+                       placeholder="e.g 08067189966">
+
+
+                <mat-error *ngIf="searchForm.controls['phoneNumber'].invalid &&
+            (searchForm.controls['phoneNumber'].dirty || searchForm.controls['phoneNumber'].touched)">
+
+                <span
+                  *ngIf="!searchForm.controls['phoneNumber'].errors.required && searchForm.controls['phoneNumber'].errors.phoneNumberInvalid">
+               Phone number is invalid
+            </span>
+
+                </mat-error>
+
+
+              </mat-form-field>
+
+            </div>
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter Email"
+                       formControlName="email"
+                       type="text"
+                       [errorStateMatcher]="matcher">
+
+                <!--<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment password-input-field-mat-input" appearance="outline">
+
+                <mat-label>Account Type</mat-label>
+                <mat-select formControlName="accountType">
+                  <mat-option *ngFor="let accountType of accountTypes" [value]="accountType.value">
+                    {{accountType.viewValue}}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+
+            </div>
+            <div class="col s12 m6 l6">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>Role</mat-label>
+                <mat-select [formControlName]="'roles'" multiple>
+                  <mat-option *ngFor="let role of listOfRoles" [value]="role.type">{{role.name}}</mat-option>
+                </mat-select>
+
+                <div *ngIf="fetchingRoles" matSuffix>
+                  <mat-spinner [diameter]="25"></mat-spinner>
+                </div>
+
+
+                <mat-error *ngIf="searchForm.controls['roles'].invalid &&
+            (searchForm.controls['roles'].dirty || searchForm.controls['roles'].touched)">
+
+                <span *ngIf="searchForm.controls['roles'].errors.required">
+                  Role is required
+               </span>
+
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="text-align-center">
+          <button mat-button mat-flat-button class="view-btn" (click)="search()"> Search</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="loadingPageData">
+      loading
+    </div>
+
+  </mat-card>
+
+
+  <div style="padding-bottom: 40px; padding-top: 40px">
+
+    <div *ngIf="listOfPortalUsers.length <= 0" style="padding-top: 20px; padding-bottom: 20px">
+      <mat-card>No record found</mat-card>
+    </div>
+    <div *ngIf="listOfPortalUsers.length > 0">
+      <table>
+        <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Userid</th>
+          <th scope="col">Firstname</th>
+          <th scope="col">Lastname</th>
+          <th scope="col">Othername</th>
+          <th scope="col">Phone number</th>
+          <th scope="col">Email</th>
+          <th scope="col">Account Type</th>
+          <!--<th></th>-->
+          <!--<th></th>-->
+          <th></th>
+          <!--<th></th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of listOfPortalUsers">
+          <td data-label="id">{{item?.position}}</td>
+          <td data-label="Userid"><span style="word-break: break-all">{{item?.code}}</span></td>
+          <td data-label="Firstname"><span style="word-break: break-all">{{item?.firstName}}</span></td>
+          <td data-label="Lastname">{{item?.lastName}}</td>
+          <td data-label="Othername">
+            <span *ngIf="item?.otherName;else elseDiv">{{item?.otherName}}</span>
+            <ng-template #elseDiv>null</ng-template>
+          </td>
+          <td data-label="Phone number"><span style="word-break: break-all">{{item?.phoneNumber}}</span></td>
+          <td data-label="Email">
+            <span class="break-all-word" *ngIf="item?.email;else elseDiv">{{item?.email}}</span>
+            <ng-template #elseDiv>null</ng-template>
+          </td>
+          <td data-label="Account Type">{{item?.portalAccountType}}</td>
+          <!--<td data-label="">-->
+          <!--<button class="remove-btn" mat-flat-button><span class="break-all-word">Deactivate</span></button>-->
+          <!--</td>-->
+          <!--<td data-label="">-->
+          <!--<button class="unblock-btn" mat-flat-button><span class="break-all-word">Unblock</span></button>-->
+          <!--</td>-->
+          <td data-label="">
+            <button class="view-btn" (click)="redirectToEdit(item.id, item?.portalAccountType)" mat-flat-button><span
+              class="break-all-word">Edit</span></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="listOfPortalUsers.length > 0">
+  <mat-paginator [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="switchPage($event)">
+  </mat-paginator>
+
+</div>

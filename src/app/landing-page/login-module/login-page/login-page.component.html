@@ -1,0 +1,206 @@
+<div class="login-page">
+
+  <div class="login-page-container">
+
+    <div class="login-page-body">
+
+      <mat-card>
+
+        <div>
+          <h2 style="text-align: center">LOGIN</h2>
+        </div>
+
+        <mat-horizontal-stepper [linear]="false" #stepper>
+          <mat-step [stepControl]="emailFormGroup">
+            <form [formGroup]="emailFormGroup">
+              <ng-template matStepLabel>Fill out your name</ng-template>
+              <div class="col m12 s12 l12">
+                <mat-form-field class="alignment hide-login-with-phone-number"
+                                [ngClass]="(isNumber)?'show-login-with-phone-number':''" appearance="outline">
+
+
+                      <span *ngIf="isNumber" matPrefix
+                            style="top: 0 !important;"
+                            (click)="openPhoneNumberDialog('email', 'selectedPhoneNumber')">
+                            <img style="vertical-align: center; width: 20px; height: 10px"
+                                 src="assets/img/svg/drop-down-arrow.svg" alt="dropdown">
+                            <img style="vertical-align: bottom; width: 25px; height: 15px"
+                                 [src]="getLocalCountryImageUrl(emailFormGroup.controls['selectedPhoneNumber'].value.alpha2)"
+                                 alt="flag">
+                            <span class="span-custom"
+                                  style="vertical-align: baseline; padding-bottom: 5px; padding-right: 5px;padding-left: 5px">+{{emailFormGroup.controls['selectedPhoneNumber'].value.internationalPhoneNumber}}
+                            </span>
+                      </span>
+
+
+                  <input class="input-placeholder"
+                         matInput
+                         formControlName="email"
+                         placeholder="Enter email or phone number"
+                         type="text"
+                         [errorStateMatcher]="matcher">
+
+                  <div *ngIf="emailFormGroup.controls['email'].status === 'PENDING'" matSuffix>
+                    <mat-spinner [diameter]="25"></mat-spinner>
+                  </div>
+
+                  <mat-error *ngIf="emailFormGroup.controls['email'].invalid &&
+            (emailFormGroup.controls['email'].dirty || emailFormGroup.controls['email'].touched)">
+
+              <span *ngIf="emailFormGroup.controls['email'].errors.required">
+                <span>
+                  Email or phone number required
+                </span>
+              </span>
+
+                    <span
+                      *ngIf="!emailFormGroup.controls['email'].errors.required && emailFormGroup.controls['email'].errors.emailInvalid">
+                <span>Email is invalid</span>
+            </span>
+
+
+                    <span
+                      *ngIf="!emailFormGroup.controls['email'].errors.required && emailFormGroup.controls['email'].errors.phoneNumberInvalid">
+                <span>
+                  Phone number is invalid
+                </span>
+            </span>
+
+
+                    <span
+                      *ngIf="!emailFormGroup.controls['email'].errors.required && !emailFormGroup.controls['email'].errors.phoneNumberInvalid &&
+                emailFormGroup.controls['email'].errors.phoneNumberDoesNotExist">
+                    Phone number is not associated to any account
+                  </span>
+
+                    <span
+                      *ngIf="!emailFormGroup.controls['email'].errors.required && !emailFormGroup.controls['email'].errors.emailInvalid && emailFormGroup.controls['email'].errors.emailDoesNotExist">
+                    Email is not associated to any account
+                  </span>
+
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+
+              <div class="row">
+                <span class="forgot-password">Forgot password ?</span>
+              </div>
+
+
+              <div style="text-align: center">
+                <button mat-button *ngIf="emailFormGroup.status === 'PENDING'">
+                  <mat-icon>
+                    <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                  </mat-icon>
+                </button>
+                <button *ngIf="emailFormGroup.status !== 'PENDING'" (click)="nextStep()" mat-button class="button-green">Next</button>
+              </div>
+
+            </form>
+          </mat-step>
+
+
+          <mat-step [stepControl]="passwordFormGroup">
+            <form [formGroup]="passwordFormGroup">
+              <ng-template matStepLabel>Fill out your address</ng-template>
+
+              <div class="col m12 s12 l12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input matInput formControlName="password" placeholder="Enter Password"
+                         required>
+
+
+                  <mat-error *ngIf="passwordFormGroup.controls['password'].invalid &&
+            (passwordFormGroup.controls['password'].dirty || passwordFormGroup.controls['password'].touched)">
+
+                  <span
+                    *ngIf="passwordFormGroup.controls['password'].errors.required">
+                    Password required
+                  </span>
+
+
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <span class="forgot-password">Forgot password ?</span>
+              </div>
+
+
+              <div style="text-align: center">
+                <button mat-button *ngIf="passwordFormGroup.status === 'PENDING'">
+                  <mat-icon>
+                    <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                  </mat-icon>
+                </button>
+                <button *ngIf="passwordFormGroup.status !== 'PENDING'" (click)="gotoNextPageForPassword()" mat-button class="button-green">Next</button>
+              </div>
+
+            </form>
+          </mat-step>
+
+
+          <mat-step [stepControl]="twoFactorFormGroup">
+            <form [formGroup]="twoFactorFormGroup">
+              <ng-template matStepLabel>Fill out your address</ng-template>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Two-Factor</mat-label>
+                <input matInput formControlName="twoFactorCode" placeholder="Enter Two-factor "
+                       required>
+
+
+                <mat-error *ngIf="twoFactorFormGroup.controls['twoFactorCode'].invalid &&
+                  (twoFactorFormGroup.controls['twoFactorCode'].dirty
+                  || twoFactorFormGroup.controls['twoFactorCode'].touched)">
+
+                  <span *ngIf="twoFactorFormGroup.controls['twoFactorCode'].errors.required">
+                    Two factor code required
+                  </span>
+
+                  <span *ngIf="twoFactorFormGroup.controls['twoFactorCode'].hasError('minlength')">
+                    Two factor code too short
+                  </span>
+
+                  <span *ngIf="twoFactorFormGroup.controls['twoFactorCode'].hasError('maxlength')">
+                    Two factor code too long
+                  </span>
+
+                </mat-error>
+              </mat-form-field>
+
+
+              <div style="text-align: center">
+
+                <button mat-button class="button-green" *ngIf="twoFactorFormGroup.status === 'PENDING'">
+                  <mat-icon>
+                    <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                  </mat-icon>
+                </button>
+
+                <button *ngIf="twoFactorFormGroup.status !== 'PENDING'"
+                        (click)="loginWithTwoFactor()" mat-button class="button-green">
+                  Next
+                </button>
+
+              </div>
+
+            </form>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+      </mat-card>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+

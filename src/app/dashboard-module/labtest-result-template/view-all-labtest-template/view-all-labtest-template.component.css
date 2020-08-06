@@ -1,0 +1,24 @@
+.custom-body {
+  min-height: 60vh;
+}
+
+
+.container-padding {
+  padding-top: 40px;padding-bottom: 40px;
+}
+
+.assigned-yes {
+  color: #0dda16;
+}
+
+
+.assigned-no {
+  color: #a11113;
+}
+
+.button-margin {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+}

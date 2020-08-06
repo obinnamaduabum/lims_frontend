@@ -1,0 +1,91 @@
+<div class="nav-bar">
+  <div (click)="hamburgerIconClick()" #hamburgerIcon class="hamburger display-only-on-mobile"
+       style="vertical-align: bottom">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+  </div>
+
+  <div class='text-align-center display-only-on-mobile'>
+    <a class="header-logo" [routerLink]="'/dashboard/lab'">
+   <span>
+      <img class="logo-img" src="/assets/images/svg/hl-block.svg" alt='logo'/>
+    </span>
+    </a>
+  </div>
+  <!--<div class="left-side">-->
+  <!--<a routerLink="/dashboard/lab">Home</a>-->
+  <!--<a href="#news">News</a>-->
+  <!--<a href="#contact">Contact</a>-->
+  <!--</div>-->
+
+  <div class="right-side">
+
+    <div style="display: inline-block; padding-right: 20px; cursor: pointer">
+      <div *ngIf="fetchingNotification === 1">
+        <mat-icon [matBadge]="count" matBadgePosition="above after" [matMenuTriggerFor]="notificationMenu">notifications
+        </mat-icon>
+      </div>
+      <div *ngIf="fetchingNotification === 0">
+       <mat-spinner [diameter]="20"></mat-spinner>
+     </div>
+    </div>
+
+
+    <div style="display: inline" [matMenuTriggerFor]="appMenu" #t="matMenuTrigger">
+      <img src="/assets/png/user.png" alt="Avatar" class="custom-avatar">
+      <mat-icon [@indicatorRotate]="t.menuOpen ? 'expanded': 'collapsed'">
+        expand_more
+      </mat-icon>
+    </div>
+
+
+    <!--<img [matMenuTriggerFor]="appMenu" class="custom-dropdown" #t="matMenuTrigger"-->
+    <!--[src]="(t.menuOpen)? openSrc : closeSrc">-->
+  </div>
+</div>
+
+
+<mat-menu class="patient-popup-nav" #appMenu="matMenu">
+  <div mat-menu-item class="mat-menu-item-header">
+    <!--<img src="assets/png/user.png" alt="Avatar" class="dropdown-custom-avatar">-->
+    <div class="dropdown-info">{{portalUser?.email}}</div>
+  </div>
+  <hr>
+  <button mat-menu-item (click)="redirectTo('/dashboard/lab/edit/chang-password')">Change Password</button>
+  <button mat-menu-item (click)="redirectTo('/dashboard/lab/edit/account-settings')">Settings</button>
+  <button mat-menu-item (click)="logout()">Log Out</button>
+</mat-menu>
+
+
+<mat-menu class="patient-popup-nav" #notificationMenu="matMenu">
+  <div style="min-width: 150px">
+    <div *ngIf="notifications">
+      <div *ngIf="notifications.length > 0">
+      <div *ngFor="let notification of notifications; let i = index">
+        <div [ngClass]="(notification?.read)?'read':'unread'" style="padding: 5px;"
+             (click)="setAsRead(i, notification?.code, notification?.url, notification?.title, notification?.message, notification?.dateCreated, notification?.dateUpdated)">
+          <div><span
+            style="text-transform: uppercase; font-size: 10px; padding-right: 5px"><b>{{notification?.title}}</b></span><span
+            style="font-size: 10px">{{notification?.dateCreated | timeago: live }}</span></div>
+          <div style="font-size: 15px">{{notification?.message | truncate: [30, '...'] }}</div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    </div>
+
+    <div *ngIf="notifications">
+    <div *ngIf="notifications.length <= 0">
+      <span
+        style="text-transform: uppercase; font-size: 10px; padding: 5px"><b>
+        No new notification's
+      </b>
+      </span>
+
+    </div>
+    </div>
+
+    <div mat-menu-item style="text-align: center" (click)="redirectTo('/dashboard/lab/notifications/view-all')">View All</div>
+  </div>
+</mat-menu>

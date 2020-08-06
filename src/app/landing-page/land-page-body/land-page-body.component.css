@@ -1,0 +1,13 @@
+.page-content {
+  min-height: 40vh;
+}
+
+.custom-body {
+  min-height: 100vh;
+  background-color: #e2e2e2;
+}
+
+.login-page-resize {
+  padding-top: 20px;
+  min-height: 60vh;
+}

@@ -1,0 +1,5 @@
+export enum SampleTypeConstant {
+  ALL = 'All',
+  SAMPLE_COLLECTED = 'SAMPLE_COLLECTED',
+  SAMPLE_NOT_COLLECTED = 'SAMPLE_NOT_COLLECTED'
+}
