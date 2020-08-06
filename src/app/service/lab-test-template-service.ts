@@ -44,6 +44,14 @@ export class LabTestTemplateService {
     }));
   }
 
+
+  findByLabTestCode(id: any): Observable<any> {
+    return this.httpClient.get(this.serverAuthenticationApi +
+      `/v1/api/protected/default/lab_test_template/by_lab_test_id/` + id, httpOptions).pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
   update(value: any): Observable<any> {
     return this.httpClient.post(this.serverAuthenticationApi +
       `/v1/api/protected/default/lab_test_template/edit`, value, httpOptions).pipe(map((data: any) => {

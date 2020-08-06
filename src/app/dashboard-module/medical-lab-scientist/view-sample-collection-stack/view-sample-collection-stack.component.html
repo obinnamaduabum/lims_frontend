@@ -205,9 +205,9 @@
             </td>
 
             <td data-label="Go to Order">
-              <button *ngIf="item?.labScientistStatusConstant === 'PENDING'" class="view-btn" style="word-wrap: break-word" mat-flat-button
-                      (click)="redirectTo(item.labTestFormId, item.uniqueId, item.medicalLabScientistSampleCollectedId, '/dashboard/lab/medical-lab-scientist/patient-result/')">
-                <span style="word-wrap: break-word">Write Result</span>
+              <button  *ngIf="item?.labScientistStatusConstant === 'PENDING'" class="view-btn" style="word-wrap: break-word" mat-flat-button
+                      (click)="redirectTo(item?.labTest?.id, item.uniqueId, item.medicalLabScientistSampleCollectedId, '/dashboard/lab/medical-lab-scientist/patient-result/')">
+                <span style="word-break: break-word">Write Result</span>
               </button>
 
               <button *ngIf="item?.labScientistStatusConstant === 'COMPLETED'" class="download-btn" style="word-wrap: break-word" mat-flat-button

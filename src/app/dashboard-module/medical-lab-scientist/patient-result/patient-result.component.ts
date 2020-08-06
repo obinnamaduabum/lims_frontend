@@ -22,6 +22,8 @@ export class PatientResultComponent implements OnInit {
   code: string;
   sampleId: string;
   medicalLabScientistSampleCollectedId: any;
+  loading = true;
+
 
   constructor(private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
@@ -40,8 +42,12 @@ export class PatientResultComponent implements OnInit {
     });
 
     if (this.code) {
-      this.labTestTemplateService.findByCode(this.code).subscribe(data => {
+      this.labTestTemplateService.findByLabTestCode(this.code).subscribe(data => {
         const responseModel: ResponseModel = data;
+
+        console.log(responseModel);
+
+        this.loading = false;
         if (responseModel.success) {
           // console.log(responseModel.data);
           const formDataJson = JSON.parse(responseModel.data.data);
@@ -49,8 +55,11 @@ export class PatientResultComponent implements OnInit {
           this.formDataJson = formDataJson;
           this.dynamicForm = this.createControl(formDataJson);
         } else {
+          this.showError(responseModel.message);
         }
       }, error1 => {
+        this.loading = false;
+        this.showError('Internal server error');
       });
     }
     // console.log(code);
@@ -59,6 +68,10 @@ export class PatientResultComponent implements OnInit {
     // console.log(JSON.stringify(this.formDataJson));
   }
 
+
+  showError(message) {
+    this.toastrService.error(message);
+  }
 
   createControl(formDataJson: any) {
     const group = this.fb.group({});

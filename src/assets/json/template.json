@@ -1,0 +1,339 @@
+[
+  {
+    "label": "WDB",
+    "name": "wdb",
+    "description": "xxcdcdcdcdcd",
+    "min": 4,
+    "max": 11,
+    "unit": "*10^9/L",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "value": "",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "minLength",
+        "message": "Name Required"
+      },
+      {
+        "name": "maxLength",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "RBC",
+    "name": "rbc",
+    "description": "xxcdcdcdcdcd",
+    "min": 4.5,
+    "max": 5.5,
+    "unit": "10^12/L",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "HGB",
+    "name": "hgb",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 12.5,
+    "max": 15,
+    "unit": "g/dl",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "HCT",
+    "name": "hct",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 34,
+    "max": 45,
+    "unit": "%",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "MCV",
+    "name": "mcv",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 61,
+    "max": 96,
+    "unit": "fl",
+    "type": "text",
+    "inputType": "number",
+    "required": true,
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "MCH",
+    "name": "mch",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 21,
+    "max": 32,
+    "unit": "Pg",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "MCHC",
+    "name": "mchc",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 30,
+    "max": 35,
+    "unit": "g/dl",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "PLT",
+    "name": "plt",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 100,
+    "max": 450,
+    "unit": "10^9L",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "LYM",
+    "name": "lym",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 23,
+    "max": 40,
+    "unit": "%",
+    "type": "text",
+    "inputType": "number",
+    "required": true,
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "MID",
+    "name": "mid",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 3,
+    "max": 10,
+    "unit": "%",
+    "type": "text",
+    "inputType": "number",
+    "required": true,
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "GRA",
+    "name": "gra",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 50,
+    "max": 75,
+    "unit": "%",
+    "type": "text",
+    "inputType": "number",
+    "required": true,
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "RDWC",
+    "name": "rwc",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 11.5,
+    "max": 14.4,
+    "unit": "%",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "MPV",
+    "name": "mpv",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 8,
+    "max": 15,
+    "unit": "fl",
+    "type": "text",
+    "inputType": "number",
+    "required": true,
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "PCT",
+    "name": "pct",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 0.18,
+    "max": 0.28,
+    "unit": "%",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  },
+  {
+    "label": "PDWC",
+    "name": "pdwc",
+    "value": "",
+    "description": "xxcdcdcdcdcd",
+    "min": 28,
+    "max": 41,
+    "unit": "%",
+    "type": "text",
+    "required": true,
+    "inputType": "number",
+    "materialInputType": "mat-input",
+    "validations": [
+      {
+        "name": "required",
+        "message": "Name Required"
+      },
+      {
+        "name": "inputType"
+      }
+    ]
+  }
+]

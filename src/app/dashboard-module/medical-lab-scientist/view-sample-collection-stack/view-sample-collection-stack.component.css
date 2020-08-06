@@ -89,6 +89,7 @@ table td {
   font-size: 14px;
   background-color: #007bff;
   border-color: transparent;
+  white-space: pre-wrap !important;
 }
 
 .view-btn:active, .view-btn:hover {

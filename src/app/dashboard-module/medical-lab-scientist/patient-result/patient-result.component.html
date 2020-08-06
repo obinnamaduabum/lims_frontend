@@ -1,79 +1,90 @@
 <div class="container">
   <mat-card style="margin-bottom: 40px;">
 
-    <h4 style="text-align: center">PATIENT RESULT</h4>
+    <h3 style="text-align: center">PATIENT RESULT</h3>
 
-    <div *ngIf="formDataJson.length > 0">
-      <form class="dynamic-form" [formGroup]="dynamicForm" (submit)="onSubmit($event)">
-        <div *ngFor="let field of formDataJson;">
+    <div *ngIf="!this.loading">
+
+      <div *ngIf="formDataJson.length > 0">
+        <form class="dynamic-form" [formGroup]="dynamicForm" (submit)="onSubmit($event)">
+          <div *ngFor="let field of formDataJson;">
 
 
-          <div *ngIf="field?.materialInputType === 'mat-input'">
-            <mat-form-field class="alignment" appearance="outline">
-              <mat-label>{{field.label}}</mat-label>
-              <input class="input-placeholder"
-                     matInput placeholder="Enter {{field.label}}"
-                     [formControlName]="field.label"
-                     [required]="field?.required"
-                     [type]="field?.type"
-                     [errorStateMatcher]="matcher">
+            <div *ngIf="field?.materialInputType === 'mat-input'">
+              <mat-form-field class="alignment" appearance="outline">
+                <mat-label>{{field.label}}</mat-label>
+                <input class="input-placeholder"
+                       matInput placeholder="Enter {{field.label}}"
+                       [formControlName]="field.label"
+                       [required]="field?.required"
+                       [type]="field?.type"
+                       [errorStateMatcher]="matcher">
 
-              <div matSuffix>Range: {{field.min}}-{{field.max}}{{field.unit}}</div>
+                <div matSuffix>Range: {{field.min}}-{{field.max}}{{field.unit}}</div>
 
-              <mat-error *ngIf="dynamicForm.controls[field.label].invalid &&
+                <mat-error *ngIf="dynamicForm.controls[field.label].invalid &&
             (dynamicForm.controls[field.label].dirty || dynamicForm.controls[field.label].touched)">
 
-                <div *ngIf="field.required">
+                  <div *ngIf="field.required">
                 <span *ngIf="dynamicForm.controls[field.label].errors.required">
                   {{field.label}} required
                 </span>
-                </div>
+                  </div>
 
 
-                <div *ngIf="field.inputType === 'number'">
+                  <div *ngIf="field.inputType === 'number'">
                 <span *ngIf="dynamicForm.controls[field.label].errors.notNumber">
                   {{field.label}} not number
                 </span>
-                </div>
+                  </div>
 
-                <div *ngIf="field.inputType === 'string'">
+                  <div *ngIf="field.inputType === 'string'">
                 <span *ngIf="dynamicForm.controls[field.label].errors.notString">
                   {{field.label}} not string
                 </span>
-                </div>
+                  </div>
 
-                <div *ngIf="field.inputType === 'decimal'">
+                  <div *ngIf="field.inputType === 'decimal'">
                 <span *ngIf="dynamicForm.controls[field.label].errors.notDecimal">
                   {{field.label}} not decimal
                 </span>
-                </div>
+                  </div>
 
-                <div *ngIf="field.min">
+                  <div *ngIf="field.min">
                 <span *ngIf="dynamicForm.controls[field.label].errors.minLengthExceeded">
                   {{field.label}} minimum exceeded
                 </span>
-                </div>
+                  </div>
 
-                <div *ngIf="field.max">
+                  <div *ngIf="field.max">
                 <span *ngIf="dynamicForm.controls[field.label].errors.maxLengthExceeded">
                   {{field.label}} maximum exceeded
                 </span>
-                </div>
+                  </div>
 
-              </mat-error>
-            </mat-form-field>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
           </div>
 
-        </div>
+          <div class="center">
+            <button mat-raised-button type="submit">Submit</button>
+          </div>
 
-        <div class="center">
-          <button mat-raised-button type="submit">Submit</button>
-        </div>
+        </form>
+      </div>
 
-      </form>
+      <div *ngIf="formDataJson.length <= 0">
+        <span style="text-align: center">
+          Result template does not exist
+        </span>
+      </div>
+
     </div>
 
-    <div *ngIf="formDataJson.length <= 0">
+
+    <div *ngIf="this.loading">
       <div class="center">
         <mat-spinner style="margin: 0 auto" [diameter]="30"></mat-spinner>
       </div>

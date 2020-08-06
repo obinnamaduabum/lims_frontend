@@ -84,9 +84,13 @@ export class ViewSampleCollectionStackComponent implements OnInit {
   }
 
   redirectTo(id: any, labTestDetailId: any, medicalLabScientistSampleCollectedId: any, url: string) {
-    console.log(labTestDetailId);
+    console.log('labTestDetailId: ' + labTestDetailId);
+    console.log('id: ' + id);
+    console.log('medicalLabScientistSampleCollectedId: ' + medicalLabScientistSampleCollectedId);
+    console.log('url: ' + url);
+
     this.router.navigate([url + id], {queryParams:
-        {sampleId: labTestDetailId,
+        { sampleId: labTestDetailId,
           medicalLabScientistId: medicalLabScientistSampleCollectedId}});
   }
 
