@@ -36,8 +36,6 @@ export class PatientResultListComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    console.log('xxxxxxxx vb');
     this.searchForm = this.fb.group({
       startDate: ['', []],
       endDate: ['', []]
@@ -49,18 +47,13 @@ export class PatientResultListComponent implements OnInit {
 
     this.labTestOrdersService.findAllPatientLoggedInResult(labTestOrderSearchModel, 0, this.pageSize)
       .subscribe((responseModel: ResponseModel) => {
-
-        console.log(responseModel);
-
         this.loading = false;
         if (responseModel.success) {
-          console.log(responseModel);
           this.labTestOrderReceiptList = responseModel.data.dataList;
           this.length = responseModel.data.length;
         } else {
         }
       }, error1 => {
-
         this.loading = false;
       });
 
@@ -82,25 +75,19 @@ export class PatientResultListComponent implements OnInit {
   }
 
   redirectTo(id: any, labTestDetailId: any, medicalLabScientistSampleCollectedId: any, url: string) {
-    console.log('labTestDetailId: ' + labTestDetailId);
-    console.log('id: ' + id);
-    console.log('medicalLabScientistSampleCollectedId: ' + medicalLabScientistSampleCollectedId);
-    console.log('url: ' + url);
 
     this.router.navigate([url + id], {queryParams:
         { sampleId: labTestDetailId,
-          medicalLabScientistId: medicalLabScientistSampleCollectedId}});
+          medicalLabScientistId: medicalLabScientistSampleCollectedId}
+    });
   }
 
 
   search() {
-
-    // console.log(this.searchForm.getRawValue());
     this.labTestOrdersService.findAllPatientLoggedInResult(
       this.searchForm.getRawValue(),
       0,
       this.pageSize).subscribe(data => {
-      console.log(data);
       this.loading = false;
       const responseModel: ResponseModel = data;
       if (responseModel.success) {
@@ -131,7 +118,6 @@ export class PatientResultListComponent implements OnInit {
       this.searchForm.getRawValue(),
       event.pageIndex,
       event.pageSize).subscribe(data => {
-      console.log(data);
 
       this.loading = false;
       const responseModel: ResponseModel = data;
@@ -157,14 +143,12 @@ export class PatientResultListComponent implements OnInit {
   }
 
   expansionClosed() {
-    console.log('xxxxx');
     this.panelOpenState = false;
     this.cookieService.delete('lab-test-ordered-expansionOpened');
     this.cookieService.set('lab-test-ordered-expansionOpened', '');
   }
 
   expansionOpened() {
-    console.log('open');
     this.panelOpenState = true;
     this.cookieService.delete('lab-test-ordered-expansionOpened');
     this.cookieService.set('lab-test-ordered-expansionOpened', 'true');
