@@ -41,10 +41,13 @@ export class EditPatientResultComponent implements OnInit {
     });
 
     if (this.code) {
-      this.labTestOrdersService.getPatientResult(this.medicalLabScientistSampleCollectedId, this.sampleId, this.code).subscribe(data => {
-        const responseModel: ResponseModel = data;
+
+
+      this.labTestOrdersService.getPatientResult(this.medicalLabScientistSampleCollectedId, this.sampleId, this.code)
+        .subscribe((responseModel: ResponseModel) => {
+
         if (responseModel.success) {
-          // console.log(JSON.parse(responseModel.data.result));
+          console.log(responseModel.data);
           const formDataJson = this.jsonMerge(JSON.parse(responseModel.data.template), JSON.parse(responseModel.data.result));
            // JSON.parse(responseModel.data.data);
           // console.log(formDataJson);

@@ -62,8 +62,8 @@ export class ViewAllUsersComponent implements OnInit {
       this.fetchingRoles = false;
       const responseModel: ResponseModel = data;
       if (responseModel.success) {
-        console.log(responseModel.data);
         this.listOfRoles = responseModel.data;
+        this.fetchListOfUsers();
       }
     }, error1 => {
       // this.fetchingRoles = false;
@@ -82,22 +82,29 @@ export class ViewAllUsersComponent implements OnInit {
     });
 
     this.getPhoneNumberCodes();
-    this.fetchOnLoad();
+
+
   }
 
-
-
-  fetchOnLoad() {
-    this.userService.getAllEmployees(this.searchForm.getRawValue(), 10, 0).subscribe(data => {
-      console.log(data);
-      const responseModel: ResponseModel = data;
-      if (responseModel.success) {
-        this.listOfPortalUsers = responseModel.data.dataList;
-        this.length = responseModel.data.length;
-        this.pageSize = responseModel.data.pageSize;
+  fetchListOfUsers() {
+    this.userService.getAllEmployees(this.searchForm.getRawValue(), 10, 0).subscribe((responseModelx: ResponseModel) => {
+      if (responseModelx.success) {
+        this.listOfPortalUsers = responseModelx.data.dataList;
+        this.length = responseModelx.data.length;
+        this.pageSize = responseModelx.data.pageSize;
+        console.log('ssss');
+        console.log(this.listOfPortalUsers);
+      } else {
+        this.listOfPortalUsers = [];
+        this.length = 0;
+        this.pageSize = 0;
       }
-    }, error1 => {});
+    }, error1 => {
+      console.log(error1);
+    });
   }
+
+
   showLessOrMoreToggle() {
     this.animationState = this.animationState === 'out' ? 'in' : 'out';
   }
@@ -112,12 +119,13 @@ export class ViewAllUsersComponent implements OnInit {
 
   search() {
     this.userService.getAllEmployees(this.searchForm.getRawValue(), 10, 0).subscribe(data => {
-      console.log(data);
       const responseModel: ResponseModel = data;
       if (responseModel.success) {
         this.listOfPortalUsers = responseModel.data.dataList;
         this.length = responseModel.data.length;
         this.pageSize = responseModel.data.pageSize;
+
+        console.log(this.listOfPortalUsers);
       } else {
         this.listOfPortalUsers = [];
         this.length = 0;

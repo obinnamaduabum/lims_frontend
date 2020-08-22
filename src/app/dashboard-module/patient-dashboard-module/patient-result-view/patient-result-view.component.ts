@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
 import {MyErrorStateMatcher} from '../../../models/my-error-state-matcher';
-import {LabTestOrdersService} from '../../../service/lab-test-orders-service';
+import {ActivatedRoute} from '@angular/router';
 import {LabTestTemplateService} from '../../../service/lab-test-template-service';
+import {LabTestOrdersService} from '../../../service/lab-test-orders-service';
+import {ToastrService} from 'ngx-toastr';
+import {ResponseModel} from '../../../models/response-model';
 import {CustomRangeValidatorMin} from '../../../validator/custom-range-min.validator';
 import {CustomRangeValidatorMax} from '../../../validator/custom-range-max.validator';
 import {CustomInputType} from '../../../validator/custom-validate-input-type.validator';
-import {ResponseModel} from '../../../models/response-model';
 
 @Component({
-  selector: 'app-patient-result',
-  templateUrl: './patient-result.component.html',
-  styleUrls: ['./patient-result.component.css']
+  selector: 'app-patient-result-view',
+  templateUrl: './patient-result-view.component.html',
+  styleUrls: ['./patient-result-view.component.css']
 })
-export class PatientResultComponent implements OnInit {
+export class PatientResultViewComponent implements OnInit {
 
   formDataJson = [];
   dynamicForm: FormGroup;
@@ -23,9 +23,7 @@ export class PatientResultComponent implements OnInit {
   code: string;
   sampleId: string;
   medicalLabScientistSampleCollectedId: any;
-  loading = true;
-  labTestName = 'N/A';
-
+  testName: string;
 
   constructor(private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
@@ -35,36 +33,40 @@ export class PatientResultComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('get in');
 
     this.code = this.activatedRoute.snapshot.paramMap.get('id');
     this.activatedRoute.queryParams.subscribe((params) => {
-      console.log(params.sampleId);
+      // console.log(params.sampleId);
       this.sampleId = params.sampleId;
       this.medicalLabScientistSampleCollectedId = params.medicalLabScientistId;
     });
 
     if (this.code) {
-      this.labTestTemplateService.findByLabTestCode(this.code).subscribe(data => {
-        const responseModel: ResponseModel = data;
 
-        console.log(responseModel);
+      console.log('1: ' + this.medicalLabScientistSampleCollectedId);
+      console.log('2: ' + this.sampleId);
+      console.log('3: ' + this.code);
 
-        this.loading = false;
-        if (responseModel.success) {
-          // console.log(responseModel.data);
-          this.labTestName = responseModel.data.labTestName;
-          const formDataJson = JSON.parse(responseModel.data.data);
-          // console.log(formDataJson);
-          this.formDataJson = formDataJson;
-          this.dynamicForm = this.createControl(formDataJson);
-        } else {
-          this.showError(responseModel.message);
-        }
-      }, error1 => {
-        this.loading = false;
-        this.showError('Internal server error');
-      });
+      this.labTestOrdersService.getPatientResultForPatient(
+        this.medicalLabScientistSampleCollectedId,
+        this.sampleId,
+        this.code).subscribe((responseModel: ResponseModel) => {
+
+          if (responseModel.success) {
+            console.log(responseModel.data);
+
+            this.testName = responseModel?.data?.name;
+
+            console.log('xxx');
+            const formDataJson = this.jsonMerge(JSON.parse(responseModel.data.template), JSON.parse(responseModel.data.result));
+            // JSON.parse(responseModel.data.data);
+            // console.log(formDataJson);
+            this.formDataJson = formDataJson;
+            this.dynamicForm = this.createControl(formDataJson);
+          } else {
+          }
+        }, error1 => {
+        });
     }
     // console.log(code);
 
@@ -73,8 +75,14 @@ export class PatientResultComponent implements OnInit {
   }
 
 
-  showError(message) {
-    this.toastrService.error(message);
+
+  jsonMerge(templates: any[], results: any[]) {
+    for (const key in templates) {
+      templates[key].value = results[templates[key].label];
+    }
+    // console.log(templates);
+    return templates;
+
   }
 
   createControl(formDataJson: any) {
@@ -136,8 +144,9 @@ export class PatientResultComponent implements OnInit {
     if (this.dynamicForm.valid) {
       const patientResult = new PatientResultModel();
       patientResult.data = this.dynamicForm.getRawValue();
-      patientResult.id = this.medicalLabScientistSampleCollectedId;
-
+      patientResult.restTemplateId = this.code;
+      patientResult.patientSampleId = this.sampleId;
+      patientResult.medicalLabScientistSampleCollectedId = this.medicalLabScientistSampleCollectedId;
       console.log(patientResult);
 
 
@@ -152,7 +161,6 @@ export class PatientResultComponent implements OnInit {
         }
 
       }, error1 => {
-        this.showFailed(error1?.statusText);
         console.log(error1);
       });
     } else {
@@ -184,5 +192,7 @@ export class PatientResultComponent implements OnInit {
 
 export class PatientResultModel {
   data: any;
-  id: any;
+  restTemplateId: string;
+  patientSampleId: string;
+  medicalLabScientistSampleCollectedId: any;
 }

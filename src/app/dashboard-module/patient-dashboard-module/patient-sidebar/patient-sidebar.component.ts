@@ -28,6 +28,12 @@ export class PatientSidebarComponent implements OnInit {
       showDivider: true,
       activeLinkOptions: true,
       route: '/dashboard/patient/receipt'
+    },
+    {
+      displayName: 'Result',
+      showDivider: true,
+      activeLinkOptions: true,
+      route: '/dashboard/patient/patient-result-list'
     }
   ];
   @ViewChild('appDrawer', {static: true}) appDrawer: ElementRef;

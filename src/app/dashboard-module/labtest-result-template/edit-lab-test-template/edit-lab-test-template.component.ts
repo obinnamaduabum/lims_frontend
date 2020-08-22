@@ -53,9 +53,14 @@ export class EditLabTestTemplateComponent implements OnInit {
   ngOnInit() {
     this.doFormGroup();
     this.code = this.activatedRoute.snapshot.paramMap.get('code');
+
+    console.log(this.code);
+
     this.labTestTemplateService.findByCode(this.code).subscribe(data => {
-      const responseModel: ResponseModel = data;
+
       console.log(data);
+      const responseModel: ResponseModel = data;
+
       if (responseModel.success) {
         this.patch(responseModel.data, this.code);
       }

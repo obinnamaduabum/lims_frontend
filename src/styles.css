@@ -2,6 +2,7 @@
 
 @import "assets/css/materialize.css";
 @import "assets/css/animate.css";
+@import "assets/css/hamburgers.min.css";
 @import '~jsoneditor/dist/jsoneditor.css';
 /*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
 /*@import url('https://fonts.googleapis.com/css?family=Open+Sans');*/
@@ -250,12 +251,20 @@ h1, h2 , h3, h4, h5, h6, p , a{
     display: inline-block;
   }
 
+  .display-only-on-desktop {
+    display: none;
+  }
+
 }
 
 @media screen and (min-width: 801px) {
 
   .display-only-on-mobile {
     display: none;
+  }
+
+  .display-only-on-desktop {
+    display: inline-block;
   }
 
   .btn-login {

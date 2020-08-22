@@ -79,17 +79,41 @@ export class LabTestOrdersService {
   }
 
 
+
+  // Patient Result
+  findAllPatientLoggedInResult(value: any, pageNumber: number, pageSize: number): Observable<any> {
+    return this.httpClient.post(this.serverAuthenticationApi +
+      `/v1/api/protected/default/my-patient-result/list-all?page=` + pageNumber + '&size=' + pageSize, value, httpOptions)
+      .pipe(map((data: any) => {
+        return data;
+      }));
+  }
+
+
   createPatientResult(value: any): Observable<any> {
     return this.httpClient.post(this.serverAuthenticationApi +
-      `/v1/api/protected/default/patient-result/create`, value, httpOptions)
+      `/v1/api/protected/default/my-patient-result/create-result`, value, httpOptions)
       .pipe(map((data: any) => {
         return data;
       }));
   }
 
   getPatientResult(id: any, code: any, templateCode: any): Observable<any> {
+    console.log('id: ' + id + 'code:' + code + 'template: ' + templateCode );
+
     return this.httpClient.get(this.serverAuthenticationApi +
       `/v1/api/protected/default/lab-scientist-result/` + id + `?code=` + code + `&template_code=` + templateCode, httpOptions)
+      .pipe(map((data: any) => {
+        return data;
+      }));
+  }
+
+
+  getPatientResultForPatient(id: any, code: any, templateCode: any): Observable<any> {
+    console.log('id: ' + id + 'code:' + code + 'template: ' + templateCode );
+
+    return this.httpClient.get(this.serverAuthenticationApi +
+      `/v1/api/protected/default/my-patient-result/` + id + `?code=` + code + `&template_code=` + templateCode, httpOptions)
       .pipe(map((data: any) => {
         return data;
       }));

@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {MyErrorStateMatcher} from '../../../models/my-error-state-matcher';
+import {LabTestOrdersService} from '../../../service/lab-test-orders-service';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {ToastrService} from 'ngx-toastr';
-import {MyErrorStateMatcher} from '../../../models/my-error-state-matcher';
-import {LabTestOrdersService} from '../../../service/lab-test-orders-service';
-import {ResponseModel} from '../../../models/response-model';
-import {TestsSearchModel} from '../../../models/tests-search.model';
-import {PageEvent} from '@angular/material/paginator';
 import {LabTestOrderSearchModel} from '../../../models/lab-test-order-search-model';
+import {ResponseModel} from '../../../models/response-model';
+import {PageEvent} from '@angular/material/paginator';
+import {TestsSearchModel} from '../../../models/tests-search.model';
 
 @Component({
-  selector: 'app-view-sample-collection-stack',
-  templateUrl: './view-sample-collection-stack.component.html',
-  styleUrls: ['./view-sample-collection-stack.component.css']
+  selector: 'app-patient-result-list',
+  templateUrl: './patient-result-list.component.html',
+  styleUrls: ['./patient-result-list.component.css']
 })
-export class ViewSampleCollectionStackComponent implements OnInit {
+export class PatientResultListComponent implements OnInit {
 
   labTestOrderReceiptList: any[] = [];
   loading = true;
@@ -36,12 +36,9 @@ export class ViewSampleCollectionStackComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    console.log('xxxxxxxx vb');
     this.searchForm = this.fb.group({
-      fullName: ['', []],
-      email: ['', []],
-      phoneNumber: ['', []],
-      code: ['', []],
-      orderId: ['', []],
       startDate: ['', []],
       endDate: ['', []]
     });
@@ -50,22 +47,22 @@ export class ViewSampleCollectionStackComponent implements OnInit {
     labTestOrderSearchModel.startDate = '';
     labTestOrderSearchModel.enddate = '';
 
-    this.labTestOrdersService.findAllSamplesCollectedForMedicalLabScientist(labTestOrderSearchModel, 0, this.pageSize)
+    this.labTestOrdersService.findAllPatientLoggedInResult(labTestOrderSearchModel, 0, this.pageSize)
       .subscribe((responseModel: ResponseModel) => {
 
         console.log(responseModel);
 
         this.loading = false;
         if (responseModel.success) {
-        console.log(responseModel);
-        this.labTestOrderReceiptList = responseModel.data.dataList;
-        this.length = responseModel.data.length;
-      } else {
-      }
-    }, error1 => {
+          console.log(responseModel);
+          this.labTestOrderReceiptList = responseModel.data.dataList;
+          this.length = responseModel.data.length;
+        } else {
+        }
+      }, error1 => {
 
-      this.loading = false;
-    });
+        this.loading = false;
+      });
 
 
     if (this.cookieService.get('lab-test-ordered-expansionOpened')) {
@@ -99,7 +96,7 @@ export class ViewSampleCollectionStackComponent implements OnInit {
   search() {
 
     // console.log(this.searchForm.getRawValue());
-    this.labTestOrdersService.findAllSamplesCollectedForMedicalLabScientist(
+    this.labTestOrdersService.findAllPatientLoggedInResult(
       this.searchForm.getRawValue(),
       0,
       this.pageSize).subscribe(data => {
@@ -130,7 +127,7 @@ export class ViewSampleCollectionStackComponent implements OnInit {
     // }
 
 
-    this.labTestOrdersService.findAllSamplesCollectedForMedicalLabScientist(
+    this.labTestOrdersService.findAllPatientLoggedInResult(
       this.searchForm.getRawValue(),
       event.pageIndex,
       event.pageSize).subscribe(data => {
