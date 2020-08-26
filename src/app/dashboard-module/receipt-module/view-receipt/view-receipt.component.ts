@@ -9,6 +9,7 @@ import {PortalUserModel} from '../../../models/portal-user-model';
 import {PortalAccountTypeConstant} from '../../../lh-enum/portal-account-type';
 import {ReportService} from '../../../service/report.service';
 import {LabTestOrdersService} from '../../../service/lab-test-orders-service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-view-receipt',
@@ -24,6 +25,7 @@ export class ViewReceiptComponent implements OnInit {
   printingStatus = false;
   deviceInfo: any;
   isPatient = false;
+  downloading = false;
 
   constructor(private labTestOrdersService: LabTestOrdersService,
               private activatedRoute: ActivatedRoute,
@@ -78,7 +80,12 @@ export class ViewReceiptComponent implements OnInit {
 
   downloadReceipt() {
     if (this.isPatient) {
-      this.reportService.downloadPatientReceiptPDF(this.id, 'PDF');
+      // downloading
+      this.downloading = true;
+      this.reportService.downloadPatientReceiptPDF(this.id, 'PDF').subscribe((data) => {
+        saveAs(data.blob, data.downloadName);
+        this.downloading = false;
+      });
     } else {
       this.reportService.downloadPatientReceiptPDFForAdmin(this.id, 'PDF');
     }

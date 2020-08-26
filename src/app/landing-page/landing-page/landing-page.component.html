@@ -1,7 +1,67 @@
 <div class="container">
   <mat-card class="landing-page">
-    <h2>
-      Welcome to
-    </h2>
+
+    <div class="text-align-center">
+      <h2>
+        Welcome to Hertfordshire Laboratories,
+      </h2>
+    </div>
+
+    <p>
+      This is a Laboratory Information Management System (LIMS), it helps customers get their test result online without
+      physically returning to the medical laboratory to collect it.
+    </p>
+
+    <div class="text-align-center" style="margin-top: 40px">
+      <p class="color-grey">
+        Click on the green button below to view all the available tests
+      </p>
+    </div>
+
+    <div class="text-align-center">
+      <button mat-button class="button-green" (click)="gotoToLabTests()">
+        Goto Test
+      </button>
+    </div>
 </mat-card>
+
+
+  <div style="margin-top: 20px" class="text-align-center"><h1>Features</h1></div>
+
+  <div class="col s12 m12 l12">
+    <div class="row">
+      <div class="col s12 m6 l4 add-padding-on-mobile">
+        <mat-card>
+          <div class="text-align-center">
+            <img class="landing-page-icon" src="/assets/images/svg/bell.svg" alt="logo"/>
+            <h1 class="icon-header">Result Notification</h1>
+          </div>
+            <p>Test result notification with SMS, Push notification and Email once test result is ready.</p>
+        </mat-card>
+      </div>
+
+      <div class="col s12 m6 l4 add-padding-on-mobile">
+        <mat-card>
+          <div class="text-align-center">
+            <img class="landing-page-icon" src="/assets/images/svg/report.svg" alt="logo"/>
+            <h1 class="icon-header">Test results</h1>
+          </div>
+          <p>View test results and also an option search by date for past test results.</p>
+        </mat-card>
+      </div>
+
+      <div class="col s12 m6 l4 add-padding-on-mobile">
+        <mat-card>
+          <div class="text-align-center">
+            <img class="landing-page-icon" src="/assets/images/svg/payment.svg" alt="logo"/>
+            <h1 class="icon-header">Easy Payment</h1>
+          </div>
+            <p>Payment with cash and online payment options.
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+
+
 </div>

@@ -131,7 +131,15 @@
 
           <div style="text-align: center">
             <div style="padding: 20px">
-              <button mat-flat-button class="download-btn" (click)="downloadReceipt()">Download Receipt</button>
+              <button *ngIf="!downloading" mat-flat-button class="download-btn" (click)="downloadReceipt()">Download Receipt</button>
+
+              <button *ngIf="downloading" class="download-btn" mat-flat-button>
+                <mat-icon>
+                  <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                </mat-icon>
+              </button>
+
+
             </div>
 
             <div style="padding: 20px">

@@ -12,7 +12,7 @@ import {PortalAccountTypeConstant} from '../../../lh-enum/portal-account-type';
 import {PageEvent} from '@angular/material/paginator';
 import {TestsSearchModel} from '../../../models/tests-search.model';
 import {LabTestOrderSearchModel} from '../../../models/lab-test-order-search-model';
-
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-view-all-receipts',
@@ -115,20 +115,7 @@ export class ViewAllReceiptsComponent implements OnInit {
   }
   switchPage(event: PageEvent) {
     this.loading = true;
-    const testSearchModel: TestsSearchModel = new TestsSearchModel();
-    // if (this.searchForm.get('testName').value) {
-    //   testSearchModel.searchValue = this.searchForm.get('testName').value;
-    // }
-    //
-    // if (this.searchForm.get('categoryName').value) {
-    //   testSearchModel.categoryName = this.searchForm.get('categoryName').value;
-    // }
-
-
     this.labTestOrdersService.forSpecificUser(this.searchForm.getRawValue(), event.pageIndex, event.pageSize).subscribe(data => {
-
-      console.log(data);
-
       this.loading = false;
       const responseModel: ResponseModel = data;
       if (responseModel.success) {
@@ -146,7 +133,21 @@ export class ViewAllReceiptsComponent implements OnInit {
 
   downloadReceipt(id: any) {
     if (this.isPatient) {
-      this.reportService.downloadPatientReceiptPDF(id, 'PDF');
+
+      const found = this.labTestOrderReceiptList.filter(x => x.id === id)[0];
+      const foundIndex = this.labTestOrderReceiptList.indexOf(found);
+
+      const foundObject = this.labTestOrderReceiptList[foundIndex];
+      foundObject.downloading = true;
+      this.labTestOrderReceiptList[foundIndex] = foundObject;
+
+      // downloading
+      this.reportService.downloadPatientReceiptPDF(id, 'PDF').subscribe((data) => {
+        saveAs(data.blob, data.downloadName);
+
+        foundObject.downloading = false;
+        this.labTestOrderReceiptList[foundIndex] = foundObject;
+      });
     } else {
       this.reportService.downloadPatientReceiptPDFForAdmin(id, 'PDF');
     }

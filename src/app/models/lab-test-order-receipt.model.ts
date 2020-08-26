@@ -15,4 +15,6 @@ export class LabTestOrderReceiptModel {
   cashCollected: any;
 
   paymentTransactionModel: any;
+
+  downloading: boolean;
 }

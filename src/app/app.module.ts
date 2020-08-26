@@ -45,6 +45,7 @@ import {PatientLeftSidebarService} from './service/patient-left-sidebar.service'
 import {PaymentMethodsService} from './payment-module/service/payment-methods-service';
 import {ScriptService} from './service/script-service';
 import {TimeagoModule} from 'ngx-timeago';
+import {PasswordResetService} from './service/password-reset-service';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import {TimeagoModule} from 'ngx-timeago';
     LabLoggedInGuardCanActivateChild,
 
     // Service
+    PasswordResetService,
     ScriptService,
     PaymentMethodsService,
     PatientLeftSidebarService,

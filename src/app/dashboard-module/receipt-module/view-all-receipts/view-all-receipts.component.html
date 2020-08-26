@@ -127,7 +127,17 @@
             </td>
 
             <td data-label="">
-              <button class="download-btn" (click)="downloadReceipt(item.id)" mat-flat-button><span style="word-break: break-all">Download</span></button>
+              <button *ngIf="!item.downloading" class="download-btn"
+                      (click)="downloadReceipt(item.id)" mat-flat-button>
+                <span style="word-break: break-all">Download</span>
+              </button>
+
+              <button *ngIf="item.downloading" class="download-btn" mat-flat-button>
+                <mat-icon>
+                  <mat-spinner class="white-mat-spinner" color="white" [diameter]="25"></mat-spinner>
+                </mat-icon>
+              </button>
+
             </td>
 
           </tr>

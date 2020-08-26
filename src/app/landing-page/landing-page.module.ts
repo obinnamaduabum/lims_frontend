@@ -17,12 +17,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatIconModule} from '@angular/material/icon';
+import {ForgotPasswordPageComponent} from './forgot-password-page/forgot-password-page.component';
+import {A11yModule} from '@angular/cdk/a11y';
 
 const routes: Routes = [
 
   { path: '', component: LandPageBodyComponent,
     children: [
       { path: '', component: LandingPageComponent },
+      { path: 'forgot-password', component: ForgotPasswordPageComponent },
       { path: 'login',
         loadChildren: () => import('src/app/landing-page/login-module/login-module.module').then(m => m.LoginModule ),
       },
@@ -39,7 +42,8 @@ const routes: Routes = [
     LandingPageComponent,
     LoginPageComponent,
     SignupPageComponent,
-    LandPageBodyComponent],
+    LandPageBodyComponent,
+    ForgotPasswordPageComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -54,7 +58,8 @@ const routes: Routes = [
     MatInputModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatIconModule
+    MatIconModule,
+    A11yModule
   ]
 })
 // @ts-ignore

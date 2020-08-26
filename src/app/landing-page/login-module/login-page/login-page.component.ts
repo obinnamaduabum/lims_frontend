@@ -352,4 +352,9 @@ export class LoginPageComponent implements OnInit {
     }
     return null;
   }
+
+
+  goto(url) {
+    this.router.navigateByUrl(url);
+  }
 }

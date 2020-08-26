@@ -31,7 +31,7 @@ export class ReportService {
     }));
   }
 
-  downloadPatientReceiptPDF(value: any, docType: string): void {
+  downloadPatientReceiptPDF(value: any, docType: string): Observable<any> {
     const url = this.serverAuthenticationApi + `/v1/api/protected/default/report/patient/receipt/` + value + `?doc_type=` + docType;
     let application;
     let downloadName;
@@ -42,10 +42,12 @@ export class ReportService {
       application = 'application/vnd.ms-excel';
       downloadName = 'download.xls';
     }
-    this.httpClient.post(url, value, {responseType: 'blob', headers: {Accept: application}})
-      .subscribe(blob => {
-        saveAs(blob, downloadName);
-      });
+    return this.httpClient.post(url, value, {responseType: 'blob', headers: {Accept: application}}).pipe(map((blob: any) => {
+      return {
+        blob,
+        downloadName
+      };
+    }));
   }
 
 

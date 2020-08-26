@@ -1,2 +1,22 @@
 .landing-page {
 }
+
+.landing-page-icon {
+  width: 50px;
+  margin-bottom: 5px
+}
+
+.icon-header {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.color-grey {
+  color: darkgrey;
+}
+
+
+.add-padding-on-mobile {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
